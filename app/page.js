@@ -128,7 +128,7 @@ export default function Home() {
   const [brand, setBrand] = useState({
     businessName: "Nemnich Life & Wealth",
     advisorName: "Charles Nemnich",
-    email: "charlienemnich4@gmail.com",
+    email: "charles@nemnichlifeandwealth.com",
     phone: "",
     tagline: "Protected Growth • Retirement Income • Life Insurance",
     logoText: "NLW",
