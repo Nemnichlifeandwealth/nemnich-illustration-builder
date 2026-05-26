@@ -208,13 +208,67 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-950">
-      <style>{`
-        @media print {
-          .no-print { display: none !important; }
-          .print-card { box-shadow: none !important; border-radius: 0 !important; }
-          body { background: white !important; }
-        }
-      `}</style>
+     <style>{`
+  @page {
+    size: letter;
+    margin: 0.35in;
+  }
+
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    html,
+    body {
+      background: white !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    .print-card {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: visible !important;
+    }
+
+    .print-section {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .print-table {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    table,
+    tr,
+    td,
+    th {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .print-header {
+      break-after: avoid !important;
+      page-break-after: avoid !important;
+    }
+
+    .print-new-page {
+      break-before: page !important;
+      page-break-before: always !important;
+    }
+  }
+`}</style>
 
       <header className="no-print border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
