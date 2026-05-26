@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, FileText, Lock, Plus, Trash2, Eye, Settings, ShieldCheck, BarChart3 } from "lucide-react";
