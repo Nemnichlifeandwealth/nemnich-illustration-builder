@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, FileText, Lock, Plus, Trash2, Eye, Settings, ShieldCheck, BarChart3 } from "lucide-react";
@@ -9,7 +10,7 @@ const defaultBrand = {
   businessName: "Nemnich Life & Wealth",
   tagline: "Protected Growth • Retirement Income • Life Insurance",
   advisorName: "Charles Nemnich",
-  phone: "31.737.0520",
+  phone: "314.737.0520",
   email: "charles@nemnichlifeandwealth.com",
   website: "",
   primaryColor: "#111827",
