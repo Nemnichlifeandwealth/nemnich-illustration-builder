@@ -644,7 +644,7 @@ export default function NemnichIllustrationBuilder() {
 
          {selectedCarrierData && (
   <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
-    <span className="flex items-center text-xs font-semibold uppercase tracking-wide text-black">
+    <span className="flex items-center translate-y-[1px] text-xs font-semibold uppercase tracking-wide text-black">
       Carrier
     </span>
 
