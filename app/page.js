@@ -643,8 +643,8 @@ export default function NemnichIllustrationBuilder() {
                 <p className="mt-2 max-w-2xl text-sm text-white/80">Prepared for {client.name} • Age {client.age} • {client.state} • {client.preparedDate}</p>
 
                 {selectedCarrierData && (
-                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-white/100">
+                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white/100 px-4 py-3">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-black/100">
                       Carrier
                     </span>
                     <img
