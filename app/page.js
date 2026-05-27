@@ -650,7 +650,7 @@ export default function NemnichIllustrationBuilder() {
                     <img
                       src={selectedCarrierData.logo}
                       alt={`${selectedCarrierData.name} logo`}
-                      className="max-h-12 max-w-[220px] rounded bg-white object-contain p-1"
+                      className="max-h-12 max-w-[220px] rounded object-contain p-1"
                     />
                   </div>
                 )}
