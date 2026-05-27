@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, FileText, Lock, Plus, Trash2, Eye, Settings, ShieldCheck, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,10 @@ const defaultBrand = {
   website: "",
   primaryColor: "#111827",
   accentColor: "#C7A95B",
+  headerBackgroundColor: "#111827",
+  pageBackgroundColor: "#F3F4F6",
   logoText: "NLW",
+  logoImage: "",
 };
 
 const productTemplates = {
@@ -224,6 +227,49 @@ export default function NemnichIllustrationBuilder() {
     },
   });
 
+  useEffect(() => {
+    try {
+      const savedBrand = window.localStorage.getItem("nlw-brand-settings");
+      if (savedBrand) {
+        setBrand({ ...defaultBrand, ...JSON.parse(savedBrand) });
+      }
+    } catch (error) {
+      console.error("Unable to load saved brand settings:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("nlw-brand-settings", JSON.stringify(brand));
+    } catch (error) {
+      console.error("Unable to save brand settings:", error);
+    }
+  }, [brand]);
+
+  function updateBrand(key, value) {
+    setBrand((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  }
+
+  function handleLogoUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      updateBrand("logoImage", reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  function resetBrandSettings() {
+    setBrand(defaultBrand);
+  }
+
   const template = productTemplates[selectedProduct];
 
   const currentFields = useMemo(() => template.fields, [template]);
@@ -288,19 +334,63 @@ export default function NemnichIllustrationBuilder() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-950">
+    <div className="min-h-screen text-gray-950" style={{ backgroundColor: brand.pageBackgroundColor }}>
       <style>{`
+        @page {
+          size: letter;
+          margin: 0.35in;
+        }
+
         @media print {
-          .no-print { display: none !important; }
-          .print-area { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; }
-          body { background: white !important; }
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+
+          html,
+          body {
+            background: white !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+          }
+
+          .no-print {
+            display: none !important;
+          }
+
+          .print-area {
+            box-shadow: none !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            overflow: visible !important;
+          }
+
+          .print-section,
+          .print-card,
+          table,
+          tr,
+          td,
+          th {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
         }
       `}</style>
 
       <div className="no-print border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black text-white" style={{ background: brand.primaryColor }}>{brand.logoText}</div>
+            {brand.logoImage ? (
+              <img
+                src={brand.logoImage}
+                alt={`${brand.businessName} logo`}
+                className="h-11 w-11 rounded-2xl bg-white object-contain p-1"
+              />
+            ) : (
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black text-white" style={{ background: brand.primaryColor }}>{brand.logoText}</div>
+            )}
             <div>
               <h1 className="text-lg font-bold">{brand.businessName} Illustration Builder</h1>
               <p className="text-xs text-gray-500">Manual-entry advisor sales summary generator</p>
@@ -319,12 +409,77 @@ export default function NemnichIllustrationBuilder() {
           {activeTab === "branding" ? (
             <Card className="rounded-3xl shadow-sm">
               <CardContent className="p-5">
-                <h2 className="mb-4 text-lg font-bold">Branding Settings</h2>
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-lg font-bold">Branding Settings</h2>
+                    <p className="text-sm text-gray-500">Customize the colors and logo used in the client preview and PDF.</p>
+                  </div>
+                  <Button variant="outline" onClick={resetBrandSettings}>Reset</Button>
+                </div>
+
+                <div className="mb-5 rounded-2xl border bg-gray-50 p-4">
+                  <label className={labelClass()}>Logo Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className={inputClass()}
+                    onChange={handleLogoUpload}
+                  />
+                  <p className="mt-2 text-xs text-gray-500">
+                    Upload a PNG, JPG, or SVG logo. It will be saved in this browser.
+                  </p>
+
+                  {brand.logoImage && (
+                    <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-white p-3">
+                      <img
+                        src={brand.logoImage}
+                        alt={`${brand.businessName} uploaded logo`}
+                        className="max-h-20 max-w-[190px] object-contain"
+                      />
+                      <Button variant="outline" onClick={() => updateBrand("logoImage", "")}>Remove Logo</Button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-5 grid gap-3 sm:grid-cols-2">
+                  {[
+                    ["primaryColor", "Primary Color"],
+                    ["accentColor", "Accent Color"],
+                    ["headerBackgroundColor", "Header Background"],
+                    ["pageBackgroundColor", "Page Background"],
+                  ].map(([key, label]) => (
+                    <div key={key} className="rounded-2xl border bg-gray-50 p-3">
+                      <label className={labelClass()}>{label}</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          className="h-11 w-14 cursor-pointer rounded-xl border bg-white p-1"
+                          value={brand[key]}
+                          onChange={(e) => updateBrand(key, e.target.value)}
+                        />
+                        <input
+                          className={inputClass()}
+                          value={brand[key]}
+                          onChange={(e) => updateBrand(key, e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="space-y-3">
-                  {Object.keys(brand).map((key) => (
+                  {[
+                    ["businessName", "Business Name"],
+                    ["tagline", "Tagline"],
+                    ["advisorName", "Advisor Name"],
+                    ["phone", "Phone"],
+                    ["email", "Email"],
+                    ["website", "Website"],
+                    ["logoText", "Fallback Logo Text"],
+                  ].map(([key, label]) => (
                     <div key={key}>
-                      <label className={labelClass()}>{key.replace(/([A-Z])/g, " $1")}</label>
-                      <input className={inputClass()} value={brand[key]} onChange={(e) => setBrand({ ...brand, [key]: e.target.value })} />
+                      <label className={labelClass()}>{label}</label>
+                      <input className={inputClass()} value={brand[key]} onChange={(e) => updateBrand(key, e.target.value)} />
                     </div>
                   ))}
                 </div>
@@ -438,7 +593,7 @@ export default function NemnichIllustrationBuilder() {
         </div>
 
         <div className="print-area mx-auto w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-xl">
-          <div className="p-8 text-white" style={{ background: brand.primaryColor }}>
+          <div className="p-8 text-white print-section" style={{ background: brand.headerBackgroundColor }}>
             <div className="flex items-start justify-between gap-6">
               <div>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
@@ -448,7 +603,15 @@ export default function NemnichIllustrationBuilder() {
                 <p className="mt-2 max-w-2xl text-sm text-white/80">Prepared for {client.name} • Age {client.age} • {client.state} • {client.preparedDate}</p>
               </div>
               <div className="text-right">
-                <div className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black" style={{ color: brand.primaryColor }}>{brand.logoText}</div>
+                {brand.logoImage ? (
+                  <img
+                    src={brand.logoImage}
+                    alt={`${brand.businessName} logo`}
+                    className="ml-auto max-h-24 max-w-[220px] rounded-2xl bg-white object-contain p-3"
+                  />
+                ) : (
+                  <div className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black" style={{ color: brand.primaryColor }}>{brand.logoText}</div>
+                )}
                 <p className="mt-3 text-sm font-bold">{brand.businessName}</p>
                 <p className="text-xs text-white/70">{brand.tagline}</p>
               </div>
@@ -456,7 +619,7 @@ export default function NemnichIllustrationBuilder() {
           </div>
 
           <div className="p-8">
-            <div className="mb-6 grid gap-4 md:grid-cols-3">
+            <div className="print-section mb-6 grid gap-4 md:grid-cols-3">
               <div className="rounded-3xl border bg-gray-50 p-5 md:col-span-2">
                 <div className="mb-2 flex items-center gap-2 text-sm font-bold" style={{ color: brand.accentColor }}><ShieldCheck size={18} /> Client Goal</div>
                 <p className="text-lg font-semibold leading-snug">{client.goal}</p>
@@ -467,7 +630,7 @@ export default function NemnichIllustrationBuilder() {
               </div>
             </div>
 
-            <div className="mb-6 grid gap-5 md:grid-cols-2">
+            <div className="print-section mb-6 grid gap-5 md:grid-cols-2">
               <section className="rounded-3xl border p-5">
                 <h2 className="mb-4 flex items-center gap-2 text-xl font-black"><ShieldCheck size={20} /> Main Policy Points</h2>
                 <ul className="space-y-3 text-sm">
@@ -494,7 +657,7 @@ export default function NemnichIllustrationBuilder() {
             </div>
 
             {compareMode && (
-              <section className="mb-6 rounded-3xl border p-5">
+              <section className="print-section mb-6 rounded-3xl border p-5">
                 <h2 className="mb-4 flex items-center gap-2 text-xl font-black"><BarChart3 size={20} /> Product Comparison</h2>
                 <div className="overflow-hidden rounded-2xl border">
                   <table className="w-full border-collapse text-sm">
@@ -517,7 +680,7 @@ export default function NemnichIllustrationBuilder() {
               </section>
             )}
 
-            <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
+            <section className="print-section rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
               <h2 className="mb-2 font-black">Important Disclosure</h2>
               <p>
                 This summary is a conceptual planning tool for educational discussion only. It is not an official carrier illustration, policy contract, offer, guarantee, or tax/legal advice. Final values, guarantees, fees, riders, surrender charges, income amounts, underwriting approval, product availability, and policy benefits must be confirmed using the official carrier illustration and contract documents. Clients should consult their tax or legal professional regarding their specific situation.
