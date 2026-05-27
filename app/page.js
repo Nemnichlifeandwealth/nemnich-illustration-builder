@@ -9,10 +9,9 @@ import { Card, CardContent } from "@/components/ui/card";
 const carriers = {
   Ameritas: {
     name: "Ameritas",
-    logo: "/public/carriers/ameritas-logo.png",
+    logo: "/carriers/ameritas-logo.png",
   },
 };
-
 const defaultBrand = {
   businessName: "Nemnich Life & Wealth",
   tagline: "Protected Growth • Retirement Income • Life Insurance",
