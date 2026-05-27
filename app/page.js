@@ -650,7 +650,7 @@ export default function NemnichIllustrationBuilder() {
                     <img
                       src={selectedCarrierData.logo}
                       alt={`${selectedCarrierData.name} logo`}
-                      className="max-h-12 max-w-[220px] rounded object-contain p-1"
+                      className="max-h-12 max-w-[220px] rounded bg-white object-contain p-1"
                     />
                   </div>
                 )}
@@ -660,7 +660,7 @@ export default function NemnichIllustrationBuilder() {
                   <img
                     src={brand.logoImage}
                     alt={`${brand.businessName} logo`}
-                    className="ml-auto max-h-24 max-w-[220px] rounded-2xl bg-white object-contain p-3"
+                    className="ml-auto max-h-24 max-w-[220px] rounded-2xl object-contain p-3"
                   />
                 ) : (
                   <div className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black" style={{ color: brand.primaryColor }}>{brand.logoText}</div>
