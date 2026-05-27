@@ -346,7 +346,7 @@ export default function NemnichIllustrationBuilder() {
       <style>{`
         @page {
           size: letter;
-          margin: 0.35in;
+          margin: 0.5in;
         }
 
         @media print {
@@ -540,13 +540,13 @@ export default function NemnichIllustrationBuilder() {
                       <img
                         src={selectedCarrierData.logo}
                         alt={`${selectedCarrierData.name} logo`}
-                        className="max-h-10 max-w-[160px] object-contain"
+                        className="max-h-16 max-w-[220px] object-contain"
                       />
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
                           Selected Carrier
                         </p>
-                        <p className="text-sm font-bold text-gray-950">
+                        <p className="text-sm font-bold text-white-950">
                           {selectedCarrierData.name}
                         </p>
                       </div>
