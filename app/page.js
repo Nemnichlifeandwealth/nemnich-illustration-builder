@@ -6,6 +6,13 @@ import { Download, FileText, Lock, Plus, Trash2, Eye, Settings, ShieldCheck, Bar
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+const carriers = {
+  Ameritas: {
+    name: "Ameritas",
+    logo: "/carriers/ameritas-logo.png",
+  },
+};
+
 const defaultBrand = {
   businessName: "Nemnich Life & Wealth",
   tagline: "Protected Growth • Retirement Income • Life Insurance",
@@ -175,6 +182,7 @@ export default function NemnichIllustrationBuilder() {
   const [brand, setBrand] = useState(defaultBrand);
   const [activeTab, setActiveTab] = useState("builder");
   const [selectedProduct, setSelectedProduct] = useState("Fixed Indexed Annuity");
+  const [selectedCarrier, setSelectedCarrier] = useState("Ameritas");
   const [compareMode, setCompareMode] = useState(false);
   const [comparisonProducts, setComparisonProducts] = useState(["Fixed Indexed Annuity", "Indexed Universal Life"]);
   const [client, setClient] = useState({
@@ -271,6 +279,7 @@ export default function NemnichIllustrationBuilder() {
   }
 
   const template = productTemplates[selectedProduct];
+  const selectedCarrierData = carriers[selectedCarrier];
 
   const currentFields = useMemo(() => template.fields, [template]);
 
@@ -513,6 +522,38 @@ export default function NemnichIllustrationBuilder() {
                       <input type="checkbox" checked={compareMode} onChange={(e) => setCompareMode(e.target.checked)} /> Comparison
                     </label>
                   </div>
+
+                  <label className={labelClass()}>Carrier</label>
+                  <select
+                    className={`${inputClass()} mb-4`}
+                    value={selectedCarrier}
+                    onChange={(e) => setSelectedCarrier(e.target.value)}
+                  >
+                    {Object.keys(carriers).map((carrier) => (
+                      <option key={carrier} value={carrier}>
+                        {carrier}
+                      </option>
+                    ))}
+                  </select>
+
+                  {selectedCarrierData && (
+                    <div className="mb-4 flex items-center gap-3 rounded-2xl border bg-gray-50 p-3">
+                      <img
+                        src={selectedCarrierData.logo}
+                        alt={`${selectedCarrierData.name} logo`}
+                        className="max-h-10 max-w-[160px] object-contain"
+                      />
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                          Selected Carrier
+                        </p>
+                        <p className="text-sm font-bold text-gray-950">
+                          {selectedCarrierData.name}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   <label className={labelClass()}>Product Presented</label>
                   <select className={inputClass()} value={selectedProduct} onChange={(e) => handleProductChange(e.target.value)}>
                     {Object.keys(productTemplates).map((product) => <option key={product}>{product}</option>)}
@@ -601,6 +642,19 @@ export default function NemnichIllustrationBuilder() {
                 </div>
                 <h1 className="text-4xl font-black tracking-tight">{selectedProduct}</h1>
                 <p className="mt-2 max-w-2xl text-sm text-white/80">Prepared for {client.name} • Age {client.age} • {client.state} • {client.preparedDate}</p>
+
+                {selectedCarrierData && (
+                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-white/70">
+                      Carrier
+                    </span>
+                    <img
+                      src={selectedCarrierData.logo}
+                      alt={`${selectedCarrierData.name} logo`}
+                      className="max-h-9 max-w-[170px] rounded bg-white object-contain p-1"
+                    />
+                  </div>
+                )}
               </div>
               <div className="text-right">
                 {brand.logoImage ? (
@@ -693,7 +747,10 @@ export default function NemnichIllustrationBuilder() {
                 <p>{brand.email}{brand.phone ? ` • ${brand.phone}` : ""}</p>
                 <p>{brand.website}</p>
               </div>
-              <div className="text-right font-semibold">{brand.businessName}</div>
+              <div className="text-right">
+                <p className="font-semibold">{brand.businessName}</p>
+                <p className="text-xs text-gray-400">Carrier: {selectedCarrier}</p>
+              </div>
             </div>
           </div>
         </div>
