@@ -2,7 +2,17 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Download, FileText, Lock, Plus, Trash2, Eye, Settings, ShieldCheck, BarChart3 } from "lucide-react";
+import {
+  Download,
+  FileText,
+  Lock,
+  Plus,
+  Trash2,
+  Eye,
+  Settings,
+  ShieldCheck,
+  BarChart3,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -12,6 +22,7 @@ const carriers = {
     logo: "/carriers/ameritas-logo.png",
   },
 };
+
 const defaultBrand = {
   businessName: "Nemnich Life & Wealth",
   tagline: "Protected Growth • Retirement Income • Life Insurance",
@@ -183,7 +194,11 @@ export default function NemnichIllustrationBuilder() {
   const [selectedProduct, setSelectedProduct] = useState("Fixed Indexed Annuity");
   const [selectedCarrier, setSelectedCarrier] = useState("Ameritas");
   const [compareMode, setCompareMode] = useState(false);
-  const [comparisonProducts, setComparisonProducts] = useState(["Fixed Indexed Annuity", "Indexed Universal Life"]);
+  const [comparisonProducts, setComparisonProducts] = useState([
+    "Fixed Indexed Annuity",
+    "Indexed Universal Life",
+  ]);
+
   const [client, setClient] = useState({
     name: "Joyce Example",
     age: "82",
@@ -191,24 +206,28 @@ export default function NemnichIllustrationBuilder() {
     goal: "Protect proceeds from a home sale and create a dependable retirement income stream.",
     preparedDate: new Date().toLocaleDateString(),
   });
+
   const [details, setDetails] = useState({
     "Initial Premium": "$150,000",
     "Additional Premium": "",
-    "Bonus": "Carrier-specific / if available",
+    Bonus: "Carrier-specific / if available",
     "Surrender Period": "7–10 years",
     "Index Strategy": "S&P 500 linked strategy",
     "Participation Rate": "Manual entry from official illustration",
     "Cap Rate": "Manual entry from official illustration",
-    "Floor": "0% floor, subject to product terms",
+    Floor: "0% floor, subject to product terms",
     "Income Rider": "Optional",
     "Estimated Income Start Date": "Manual entry",
     "Estimated Annual Income": "Manual entry from official illustration",
   });
+
   const [customPoints, setCustomPoints] = useState([
     "Funds are positioned for protection first, then growth potential.",
     "The final recommendation should be reviewed against the official carrier illustration.",
   ]);
+
   const [newPoint, setNewPoint] = useState("");
+
   const [comparisonData, setComparisonData] = useState({
     "Fixed Indexed Annuity": {
       "Primary Goal": "Protected growth and future income",
@@ -216,7 +235,7 @@ export default function NemnichIllustrationBuilder() {
       "Tax Deferral": "Yes",
       "Death Benefit": "Beneficiary value",
       "Income Potential": "Strong",
-      "Liquidity": "Limited by surrender schedule",
+      Liquidity: "Limited by surrender schedule",
       "Medical Underwriting": "Usually no",
       "Best Fit": "Retirement assets needing protection",
       "Main Consideration": "Surrender charges and liquidity limits",
@@ -227,7 +246,7 @@ export default function NemnichIllustrationBuilder() {
       "Tax Deferral": "Yes",
       "Death Benefit": "Yes",
       "Income Potential": "Possible through policy loans",
-      "Liquidity": "Based on cash value and policy structure",
+      Liquidity: "Based on cash value and policy structure",
       "Medical Underwriting": "Yes",
       "Best Fit": "Protection plus long-term accumulation",
       "Main Consideration": "Policy charges and funding design",
@@ -284,10 +303,12 @@ export default function NemnichIllustrationBuilder() {
 
   function handleProductChange(product) {
     setSelectedProduct(product);
+
     const nextDetails = {};
     productTemplates[product].fields.forEach((field) => {
       nextDetails[field] = details[field] || "";
     });
+
     setDetails(nextDetails);
   }
 
@@ -315,24 +336,64 @@ export default function NemnichIllustrationBuilder() {
     return (
       <div className="min-h-screen bg-gray-950 p-6 text-white">
         <div className="mx-auto flex min-h-[80vh] max-w-md items-center justify-center">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full"
+          >
             <Card className="rounded-3xl border-gray-800 bg-white/10 shadow-2xl backdrop-blur">
               <CardContent className="p-8">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-black text-gray-950">NLW</div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-black text-gray-950">
+                    NLW
+                  </div>
                   <div>
-                    <h1 className="text-2xl font-bold">Advisor Illustration Builder</h1>
-                    <p className="text-sm text-gray-300">Private advisor-only prototype</p>
+                    <h1 className="text-2xl font-bold">
+                      Advisor Illustration Builder
+                    </h1>
+                    <p className="text-sm text-gray-300">
+                      Private advisor-only prototype
+                    </p>
                   </div>
                 </div>
+
                 <div className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-gray-200">
-                  <div className="mb-2 flex items-center gap-2 font-semibold text-white"><Lock size={16} /> Advisor Access</div>
-                  Use demo password <span className="font-bold text-white">advisor</span> to enter this MVP.
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-white">
+                    <Lock size={16} /> Advisor Access
+                  </div>
+                  Use demo password{" "}
+                  <span className="font-bold text-white">advisor</span> to enter
+                  this MVP.
                 </div>
-                <label className="mb-2 block text-sm font-semibold text-gray-200">Password</label>
-                <input className="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" onKeyDown={(e) => { if (e.key === "Enter" && password === "advisor") setAuthenticated(true); }} />
-                <Button className="mt-4 w-full rounded-xl py-6 text-base" onClick={() => setAuthenticated(password === "advisor")}>Enter Builder</Button>
-                {password && password !== "advisor" && <p className="mt-3 text-sm text-red-300">Incorrect demo password.</p>}
+
+                <label className="mb-2 block text-sm font-semibold text-gray-200">
+                  Password
+                </label>
+                <input
+                  className="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && password === "advisor") {
+                      setAuthenticated(true);
+                    }
+                  }}
+                />
+
+                <Button
+                  className="mt-4 w-full rounded-xl py-6 text-base"
+                  onClick={() => setAuthenticated(password === "advisor")}
+                >
+                  Enter Builder
+                </Button>
+
+                {password && password !== "advisor" && (
+                  <p className="mt-3 text-sm text-red-300">
+                    Incorrect demo password.
+                  </p>
+                )}
               </CardContent>
             </Card>
           </motion.div>
@@ -342,7 +403,10 @@ export default function NemnichIllustrationBuilder() {
   }
 
   return (
-    <div className="min-h-screen text-gray-950" style={{ backgroundColor: brand.pageBackgroundColor }}>
+    <div
+      className="min-h-screen text-gray-950"
+      style={{ backgroundColor: brand.pageBackgroundColor }}
+    >
       <style>{`
         @page {
           size: letter;
@@ -375,6 +439,11 @@ export default function NemnichIllustrationBuilder() {
             overflow: visible !important;
           }
 
+          .main-policy-list {
+            max-height: none !important;
+            overflow: visible !important;
+          }
+
           .print-section,
           .print-card,
           table,
@@ -397,17 +466,42 @@ export default function NemnichIllustrationBuilder() {
                 className="h-11 w-11 rounded-2xl bg-white object-contain p-1"
               />
             ) : (
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black text-white" style={{ background: brand.primaryColor }}>{brand.logoText}</div>
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black text-white"
+                style={{ background: brand.primaryColor }}
+              >
+                {brand.logoText}
+              </div>
             )}
+
             <div>
-              <h1 className="text-lg font-bold">{brand.businessName} Illustration Builder</h1>
-              <p className="text-xs text-gray-500">Manual-entry advisor sales summary generator</p>
+              <h1 className="text-lg font-bold">
+                {brand.businessName} Illustration Builder
+              </h1>
+              <p className="text-xs text-gray-500">
+                Manual-entry advisor sales summary generator
+              </p>
             </div>
           </div>
+
           <div className="flex gap-2">
-            <Button variant={activeTab === "builder" ? "default" : "outline"} onClick={() => setActiveTab("builder")}><FileText size={16} className="mr-2" /> Builder</Button>
-            <Button variant={activeTab === "branding" ? "default" : "outline"} onClick={() => setActiveTab("branding")}><Settings size={16} className="mr-2" /> Branding</Button>
-            <Button onClick={printPage}><Download size={16} className="mr-2" /> Print / Save PDF</Button>
+            <Button
+              variant={activeTab === "builder" ? "default" : "outline"}
+              onClick={() => setActiveTab("builder")}
+            >
+              <FileText size={16} className="mr-2" /> Builder
+            </Button>
+
+            <Button
+              variant={activeTab === "branding" ? "default" : "outline"}
+              onClick={() => setActiveTab("branding")}
+            >
+              <Settings size={16} className="mr-2" /> Branding
+            </Button>
+
+            <Button onClick={printPage}>
+              <Download size={16} className="mr-2" /> Print / Save PDF
+            </Button>
           </div>
         </div>
       </div>
@@ -420,9 +514,14 @@ export default function NemnichIllustrationBuilder() {
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
                     <h2 className="text-lg font-bold">Branding Settings</h2>
-                    <p className="text-sm text-gray-500">Customize the colors and logo used in the client preview and PDF.</p>
+                    <p className="text-sm text-gray-500">
+                      Customize the colors and logo used in the client preview
+                      and PDF.
+                    </p>
                   </div>
-                  <Button variant="outline" onClick={resetBrandSettings}>Reset</Button>
+                  <Button variant="outline" onClick={resetBrandSettings}>
+                    Reset
+                  </Button>
                 </div>
 
                 <div className="mb-5 rounded-2xl border bg-gray-50 p-4">
@@ -434,7 +533,8 @@ export default function NemnichIllustrationBuilder() {
                     onChange={handleLogoUpload}
                   />
                   <p className="mt-2 text-xs text-gray-500">
-                    Upload a PNG, JPG, or SVG logo. It will be saved in this browser.
+                    Upload a PNG, JPG, or SVG logo. It will be saved in this
+                    browser.
                   </p>
 
                   {brand.logoImage && (
@@ -444,7 +544,12 @@ export default function NemnichIllustrationBuilder() {
                         alt={`${brand.businessName} uploaded logo`}
                         className="max-h-20 max-w-[190px] object-contain"
                       />
-                      <Button variant="outline" onClick={() => updateBrand("logoImage", "")}>Remove Logo</Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => updateBrand("logoImage", "")}
+                      >
+                        Remove Logo
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -487,7 +592,11 @@ export default function NemnichIllustrationBuilder() {
                   ].map(([key, label]) => (
                     <div key={key}>
                       <label className={labelClass()}>{label}</label>
-                      <input className={inputClass()} value={brand[key]} onChange={(e) => updateBrand(key, e.target.value)} />
+                      <input
+                        className={inputClass()}
+                        value={brand[key]}
+                        onChange={(e) => updateBrand(key, e.target.value)}
+                      />
                     </div>
                   ))}
                 </div>
@@ -500,12 +609,28 @@ export default function NemnichIllustrationBuilder() {
                   <h2 className="mb-4 text-lg font-bold">Client Info</h2>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {Object.keys(client).map((key) => (
-                      <div key={key} className={key === "goal" ? "sm:col-span-2" : ""}>
+                      <div
+                        key={key}
+                        className={key === "goal" ? "sm:col-span-2" : ""}
+                      >
                         <label className={labelClass()}>{key}</label>
                         {key === "goal" ? (
-                          <textarea className={inputClass()} rows={3} value={client[key]} onChange={(e) => setClient({ ...client, [key]: e.target.value })} />
+                          <textarea
+                            className={inputClass()}
+                            rows={3}
+                            value={client[key]}
+                            onChange={(e) =>
+                              setClient({ ...client, [key]: e.target.value })
+                            }
+                          />
                         ) : (
-                          <input className={inputClass()} value={client[key]} onChange={(e) => setClient({ ...client, [key]: e.target.value })} />
+                          <input
+                            className={inputClass()}
+                            value={client[key]}
+                            onChange={(e) =>
+                              setClient({ ...client, [key]: e.target.value })
+                            }
+                          />
                         )}
                       </div>
                     ))}
@@ -518,7 +643,12 @@ export default function NemnichIllustrationBuilder() {
                   <div className="mb-4 flex items-center justify-between">
                     <h2 className="text-lg font-bold">Product</h2>
                     <label className="flex items-center gap-2 text-sm font-medium">
-                      <input type="checkbox" checked={compareMode} onChange={(e) => setCompareMode(e.target.checked)} /> Comparison
+                      <input
+                        type="checkbox"
+                        checked={compareMode}
+                        onChange={(e) => setCompareMode(e.target.checked)}
+                      />{" "}
+                      Comparison
                     </label>
                   </div>
 
@@ -546,7 +676,7 @@ export default function NemnichIllustrationBuilder() {
                         <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
                           Selected Carrier
                         </p>
-                        <p className="text-sm font-bold text-white-950">
+                        <p className="text-sm font-bold text-gray-950">
                           {selectedCarrierData.name}
                         </p>
                       </div>
@@ -554,20 +684,35 @@ export default function NemnichIllustrationBuilder() {
                   )}
 
                   <label className={labelClass()}>Product Presented</label>
-                  <select className={inputClass()} value={selectedProduct} onChange={(e) => handleProductChange(e.target.value)}>
-                    {Object.keys(productTemplates).map((product) => <option key={product}>{product}</option>)}
+                  <select
+                    className={inputClass()}
+                    value={selectedProduct}
+                    onChange={(e) => handleProductChange(e.target.value)}
+                  >
+                    {Object.keys(productTemplates).map((product) => (
+                      <option key={product}>{product}</option>
+                    ))}
                   </select>
                 </CardContent>
               </Card>
 
               <Card className="rounded-3xl shadow-sm">
                 <CardContent className="p-5">
-                  <h2 className="mb-4 text-lg font-bold">Manual Entry Details</h2>
+                  <h2 className="mb-4 text-lg font-bold">
+                    Manual Entry Details
+                  </h2>
                   <div className="space-y-3">
                     {currentFields.map((field) => (
                       <div key={field}>
                         <label className={labelClass()}>{field}</label>
-                        <input className={inputClass()} value={details[field] || ""} onChange={(e) => setDetails({ ...details, [field]: e.target.value })} placeholder="Enter from official carrier illustration" />
+                        <input
+                          className={inputClass()}
+                          value={details[field] || ""}
+                          onChange={(e) =>
+                            setDetails({ ...details, [field]: e.target.value })
+                          }
+                          placeholder="Enter from official carrier illustration"
+                        />
                       </div>
                     ))}
                   </div>
@@ -576,18 +721,38 @@ export default function NemnichIllustrationBuilder() {
 
               <Card className="rounded-3xl shadow-sm">
                 <CardContent className="p-5">
-                  <h2 className="mb-4 text-lg font-bold">Custom Talking Points</h2>
+                  <h2 className="mb-4 text-lg font-bold">
+                    Custom Talking Points
+                  </h2>
                   <div className="space-y-2">
                     {customPoints.map((point, index) => (
-                      <div key={index} className="flex gap-2 rounded-xl bg-gray-50 p-2 text-sm">
+                      <div
+                        key={index}
+                        className="flex gap-2 rounded-xl bg-gray-50 p-2 text-sm"
+                      >
                         <span className="flex-1">{point}</span>
-                        <button onClick={() => setCustomPoints(customPoints.filter((_, i) => i !== index))}><Trash2 size={15} /></button>
+                        <button
+                          onClick={() =>
+                            setCustomPoints(
+                              customPoints.filter((_, i) => i !== index)
+                            )
+                          }
+                        >
+                          <Trash2 size={15} />
+                        </button>
                       </div>
                     ))}
                   </div>
                   <div className="mt-3 flex gap-2">
-                    <input className={inputClass()} value={newPoint} onChange={(e) => setNewPoint(e.target.value)} placeholder="Add custom point" />
-                    <Button onClick={addCustomPoint}><Plus size={16} /></Button>
+                    <input
+                      className={inputClass()}
+                      value={newPoint}
+                      onChange={(e) => setNewPoint(e.target.value)}
+                      placeholder="Add custom point"
+                    />
+                    <Button onClick={addCustomPoint}>
+                      <Plus size={16} />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -595,21 +760,32 @@ export default function NemnichIllustrationBuilder() {
               {compareMode && (
                 <Card className="rounded-3xl shadow-sm">
                   <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">Comparison Template</h2>
+                    <h2 className="mb-4 text-lg font-bold">
+                      Comparison Template
+                    </h2>
                     <div className="grid gap-3 sm:grid-cols-2">
                       {[0, 1].map((index) => (
                         <div key={index}>
-                          <label className={labelClass()}>Compare Product {index + 1}</label>
-                          <select className={inputClass()} value={comparisonProducts[index]} onChange={(e) => {
-                            const next = [...comparisonProducts];
-                            next[index] = e.target.value;
-                            setComparisonProducts(next);
-                          }}>
-                            {Object.keys(productTemplates).map((product) => <option key={product}>{product}</option>)}
+                          <label className={labelClass()}>
+                            Compare Product {index + 1}
+                          </label>
+                          <select
+                            className={inputClass()}
+                            value={comparisonProducts[index]}
+                            onChange={(e) => {
+                              const next = [...comparisonProducts];
+                              next[index] = e.target.value;
+                              setComparisonProducts(next);
+                            }}
+                          >
+                            {Object.keys(productTemplates).map((product) => (
+                              <option key={product}>{product}</option>
+                            ))}
                           </select>
                         </div>
                       ))}
                     </div>
+
                     <div className="mt-4 space-y-4">
                       {comparisonProducts.map((product) => (
                         <div key={product} className="rounded-2xl border p-3">
@@ -618,7 +794,13 @@ export default function NemnichIllustrationBuilder() {
                             {comparisonRows.map((row) => (
                               <div key={row}>
                                 <label className={labelClass()}>{row}</label>
-                                <input className={inputClass()} value={(comparisonData[product] || {})[row] || ""} onChange={(e) => updateComparison(product, row, e.target.value)} />
+                                <input
+                                  className={inputClass()}
+                                  value={(comparisonData[product] || {})[row] || ""}
+                                  onChange={(e) =>
+                                    updateComparison(product, row, e.target.value)
+                                  }
+                                />
                               </div>
                             ))}
                           </div>
@@ -633,31 +815,42 @@ export default function NemnichIllustrationBuilder() {
         </div>
 
         <div className="print-area mx-auto w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-xl">
-          <div className="p-8 text-white print-section" style={{ background: brand.headerBackgroundColor }}>
+          <div
+            className="p-8 text-white print-section"
+            style={{ background: brand.headerBackgroundColor }}
+          >
             <div className="flex items-start justify-between gap-6">
               <div>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                   <Eye size={14} /> Client Planning Summary
                 </div>
-                <h1 className="text-4xl font-black tracking-tight">{selectedProduct}</h1>
-                <p className="mt-2 max-w-2xl text-sm text-white/80">Prepared for {client.name} • Age {client.age} • {client.state} • {client.preparedDate}</p>
 
-         {selectedCarrierData && (
-  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
-    <span className="flex items-center translate-y-[5px] text-xs font-semibold uppercase tracking-wide text-black">
-      Carrier
-    </span>
+                <h1 className="text-4xl font-black tracking-tight">
+                  {selectedProduct}
+                </h1>
 
-    <div className="flex h-12 items-center">
-      <img
-        src={selectedCarrierData.logo}
-        alt={`${selectedCarrierData.name} logo`}
-        className="max-h-12 max-w-[220px] object-contain"
-      />
-    </div>
-  </div>
-)}
+                <p className="mt-2 max-w-2xl text-sm text-white/80">
+                  Prepared for {client.name} • Age {client.age} • {client.state}{" "}
+                  • {client.preparedDate}
+                </p>
+
+                {selectedCarrierData && (
+                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white px-4 py-2">
+                    <span className="flex items-center text-xs font-semibold uppercase tracking-wide text-black">
+                      Carrier
+                    </span>
+
+                    <div className="flex h-12 items-center">
+                      <img
+                        src={selectedCarrierData.logo}
+                        alt={`${selectedCarrierData.name} logo`}
+                        className="max-h-12 max-w-[220px] object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
+
               <div className="text-right">
                 {brand.logoImage ? (
                   <img
@@ -666,7 +859,12 @@ export default function NemnichIllustrationBuilder() {
                     className="ml-auto max-h-24 max-w-[220px] rounded-2xl object-contain p-3"
                   />
                 ) : (
-                  <div className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black" style={{ color: brand.primaryColor }}>{brand.logoText}</div>
+                  <div
+                    className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black"
+                    style={{ color: brand.primaryColor }}
+                  >
+                    {brand.logoText}
+                  </div>
                 )}
                 <p className="mt-3 text-sm font-bold">{brand.businessName}</p>
                 <p className="text-xs text-white/70">{brand.tagline}</p>
@@ -677,35 +875,69 @@ export default function NemnichIllustrationBuilder() {
           <div className="p-8">
             <div className="print-section mb-6 grid gap-4 md:grid-cols-3">
               <div className="rounded-3xl border bg-gray-50 p-5 md:col-span-2">
-                <div className="mb-2 flex items-center gap-2 text-sm font-bold" style={{ color: brand.accentColor }}><ShieldCheck size={18} /> Client Goal</div>
-                <p className="text-lg font-semibold leading-snug">{client.goal}</p>
+                <div
+                  className="mb-2 flex items-center gap-2 text-sm font-bold"
+                  style={{ color: brand.accentColor }}
+                >
+                  <ShieldCheck size={18} /> Client Goal
+                </div>
+                <p className="text-lg font-semibold leading-snug">
+                  {client.goal}
+                </p>
               </div>
+
               <div className="rounded-3xl border bg-gray-50 p-5">
-                <div className="mb-2 text-sm font-bold" style={{ color: brand.accentColor }}>Strategy Purpose</div>
+                <div
+                  className="mb-2 text-sm font-bold"
+                  style={{ color: brand.accentColor }}
+                >
+                  Strategy Purpose
+                </div>
                 <p className="text-sm leading-relaxed">{template.goal}</p>
               </div>
             </div>
 
-            <div className="print-section mb-6 grid gap-5 md:grid-cols-2">
-              <section className="rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black"><ShieldCheck size={20} /> Main Policy Points</h2>
-                <ul className="space-y-3 text-sm">
+            <div className="print-section mb-6 grid items-start gap-5 md:grid-cols-2">
+              <section className="h-fit rounded-3xl border p-5">
+                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+                  <ShieldCheck size={20} /> Main Policy Points
+                </h2>
+
+                <ul className="main-policy-list max-h-[420px] space-y-3 overflow-y-auto pr-2 text-sm">
                   {template.mainPoints.map((point, index) => (
-                    <li key={index} className="flex gap-3"><span className="mt-1 h-2 w-2 shrink-0 rounded-full" style={{ background: brand.accentColor }} /> <span>{point}</span></li>
+                    <li key={index} className="flex gap-3">
+                      <span
+                        className="mt-1 h-2 w-2 shrink-0 rounded-full"
+                        style={{ background: brand.accentColor }}
+                      />
+                      <span>{point}</span>
+                    </li>
                   ))}
+
                   {customPoints.map((point, index) => (
-                    <li key={`custom-${index}`} className="flex gap-3"><span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-gray-800" /> <span>{point}</span></li>
+                    <li key={`custom-${index}`} className="flex gap-3">
+                      <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-gray-800" />
+                      <span>{point}</span>
+                    </li>
                   ))}
                 </ul>
               </section>
 
-              <section className="rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black"><FileText size={20} /> Entered Illustration Details</h2>
+              <section className="h-fit rounded-3xl border p-5">
+                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+                  <FileText size={20} /> Policy Details
+                </h2>
+
                 <div className="space-y-2">
                   {currentFields.map((field) => (
-                    <div key={field} className="grid grid-cols-[1fr_1.2fr] gap-3 rounded-xl bg-gray-50 px-3 py-2 text-sm">
+                    <div
+                      key={field}
+                      className="grid grid-cols-[1fr_1.2fr] gap-3 rounded-xl bg-gray-50 px-3 py-2 text-sm"
+                    >
                       <div className="font-semibold text-gray-500">{field}</div>
-                      <div className="font-bold text-gray-950">{details[field] || "—"}</div>
+                      <div className="font-bold text-gray-950">
+                        {details[field] || "—"}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -714,20 +946,32 @@ export default function NemnichIllustrationBuilder() {
 
             {compareMode && (
               <section className="print-section mb-6 rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black"><BarChart3 size={20} /> Product Comparison</h2>
+                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+                  <BarChart3 size={20} /> Product Comparison
+                </h2>
                 <div className="overflow-hidden rounded-2xl border">
                   <table className="w-full border-collapse text-sm">
                     <thead>
                       <tr className="bg-gray-100 text-left">
                         <th className="p-3 font-black">Feature</th>
-                        {comparisonProducts.map((product) => <th key={product} className="p-3 font-black">{product}</th>)}
+                        {comparisonProducts.map((product) => (
+                          <th key={product} className="p-3 font-black">
+                            {product}
+                          </th>
+                        ))}
                       </tr>
                     </thead>
                     <tbody>
                       {comparisonRows.map((row) => (
                         <tr key={row} className="border-t">
-                          <td className="p-3 font-semibold text-gray-600">{row}</td>
-                          {comparisonProducts.map((product) => <td key={`${product}-${row}`} className="p-3">{(comparisonData[product] || {})[row] || "—"}</td>)}
+                          <td className="p-3 font-semibold text-gray-600">
+                            {row}
+                          </td>
+                          {comparisonProducts.map((product) => (
+                            <td key={`${product}-${row}`} className="p-3">
+                              {(comparisonData[product] || {})[row] || "—"}
+                            </td>
+                          ))}
                         </tr>
                       ))}
                     </tbody>
@@ -739,19 +983,35 @@ export default function NemnichIllustrationBuilder() {
             <section className="print-section rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
               <h2 className="mb-2 font-black">Important Disclosure</h2>
               <p>
-                This summary is a conceptual planning tool for educational discussion only. It is not an official carrier illustration, policy contract, offer, guarantee, or tax/legal advice. Final values, guarantees, fees, riders, surrender charges, income amounts, underwriting approval, product availability, and policy benefits must be confirmed using the official carrier illustration and contract documents. Clients should consult their tax or legal professional regarding their specific situation.
+                This summary is a conceptual planning tool for educational
+                discussion only. It is not an official carrier illustration,
+                policy contract, offer, guarantee, or tax/legal advice. Final
+                values, guarantees, fees, riders, surrender charges, income
+                amounts, underwriting approval, product availability, and policy
+                benefits must be confirmed using the official carrier
+                illustration and contract documents. Clients should consult
+                their tax or legal professional regarding their specific
+                situation.
               </p>
             </section>
 
             <div className="mt-8 flex items-end justify-between border-t pt-5 text-sm text-gray-500">
               <div>
-                <p className="font-bold text-gray-950">Prepared by {brand.advisorName}</p>
-                <p>{brand.email}{brand.phone ? ` • ${brand.phone}` : ""}</p>
+                <p className="font-bold text-gray-950">
+                  Prepared by {brand.advisorName}
+                </p>
+                <p>
+                  {brand.email}
+                  {brand.phone ? ` • ${brand.phone}` : ""}
+                </p>
                 <p>{brand.website}</p>
               </div>
+
               <div className="text-right">
                 <p className="font-semibold">{brand.businessName}</p>
-                <p className="text-xs text-gray-400">Carrier: {selectedCarrier}</p>
+                <p className="text-xs text-gray-400">
+                  Carrier: {selectedCarrier}
+                </p>
               </div>
             </div>
           </div>
