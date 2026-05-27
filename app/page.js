@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const carriers = {
   Ameritas: {
     name: "Ameritas",
-    logo: "public/carriers/ameritas-logo.png",
+    logo: "/carriers/ameritas-logo.png",
   },
 };
 
