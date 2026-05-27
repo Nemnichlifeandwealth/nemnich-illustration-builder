@@ -642,18 +642,21 @@ export default function NemnichIllustrationBuilder() {
                 <h1 className="text-4xl font-black tracking-tight">{selectedProduct}</h1>
                 <p className="mt-2 max-w-2xl text-sm text-white/80">Prepared for {client.name} • Age {client.age} • {client.state} • {client.preparedDate}</p>
 
-                {selectedCarrierData && (
-                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white/100 px-4 py-3">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-black/100">
-                      Carrier
-                    </span>
-                    <img
-                      src={selectedCarrierData.logo}
-                      alt={`${selectedCarrierData.name} logo`}
-                      className="max-h-12 max-w-[220px] rounded bg-white object-contain p-1"
-                    />
-                  </div>
-                )}
+         {selectedCarrierData && (
+  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
+    <span className="flex items-center text-xs font-semibold uppercase tracking-wide text-black">
+      Carrier
+    </span>
+
+    <div className="flex h-12 items-center">
+      <img
+        src={selectedCarrierData.logo}
+        alt={`${selectedCarrierData.name} logo`}
+        className="max-h-12 max-w-[220px] object-contain"
+      />
+    </div>
+  </div>
+)}
               </div>
               <div className="text-right">
                 {brand.logoImage ? (
