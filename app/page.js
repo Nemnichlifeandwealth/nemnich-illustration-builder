@@ -644,13 +644,13 @@ export default function NemnichIllustrationBuilder() {
 
                 {selectedCarrierData && (
                   <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-white/70">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-white/100">
                       Carrier
                     </span>
                     <img
                       src={selectedCarrierData.logo}
                       alt={`${selectedCarrierData.name} logo`}
-                      className="max-h-9 max-w-[170px] rounded bg-white object-contain p-1"
+                      className="max-h-12 max-w-[220px] rounded bg-white object-contain p-1"
                     />
                   </div>
                 )}
