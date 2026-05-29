@@ -703,7 +703,7 @@ export default function NemnichIllustrationBuilder() {
             >
               <CardContent className="p-8">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-2">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl p-2">
                     <img
                       src={loginTheme.logoPath}
                       alt="Nemnich Life & Wealth logo"
@@ -712,7 +712,7 @@ export default function NemnichIllustrationBuilder() {
                   </div>
                   <div>
                     <h1 className="text-2xl font-bold">
-                      Illustration Portal
+                      Nemnich Life and Wealth
                     </h1>
                     <p className="text-sm text-gray-300">
                       Advisor and client access
