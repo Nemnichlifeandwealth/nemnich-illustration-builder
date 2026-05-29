@@ -13,9 +13,6 @@ import {
   Settings,
   ShieldCheck,
   BarChart3,
-  Database,
-  User,
-  UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -195,6 +192,17 @@ function smallButtonClass() {
 }
 
 export default function NemnichIllustrationBuilder() {
+  const advisorPassword = process.env.NEXT_PUBLIC_ADVISOR_PASSWORD || "advisor";
+
+  const loginTheme = {
+    background: "#0F172A",
+    cardBackground: "rgba(255,255,255,0.08)",
+    accent: "#C7A95B",
+    buttonBackground: "#C7A95B",
+    buttonText: "#111827",
+    logoPath: "/nlw-logo.png",
+  };
+
   const [portalMode, setPortalMode] = useState("advisor");
   const [advisorAuthenticated, setAdvisorAuthenticated] = useState(false);
   const [clientAuthenticated, setClientAuthenticated] = useState(false);
@@ -678,18 +686,28 @@ export default function NemnichIllustrationBuilder() {
 
   if (!advisorAuthenticated && !clientAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-950 p-6 text-white">
+      <div
+        className="min-h-screen p-6 text-white"
+        style={{ backgroundColor: loginTheme.background }}
+      >
         <div className="mx-auto flex min-h-[80vh] max-w-md items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             className="w-full"
           >
-            <Card className="rounded-3xl border-gray-800 bg-white/10 shadow-2xl backdrop-blur">
+            <Card
+              className="rounded-3xl border-gray-800 shadow-2xl backdrop-blur"
+              style={{ backgroundColor: loginTheme.cardBackground }}
+            >
               <CardContent className="p-8">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-black text-gray-950">
-                    NLW
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-2">
+                    <img
+                      src={loginTheme.logoPath}
+                      alt="Nemnich Life & Wealth logo"
+                      className="max-h-full max-w-full object-contain"
+                    />
                   </div>
                   <div>
                     <h1 className="text-2xl font-bold">
@@ -730,8 +748,7 @@ export default function NemnichIllustrationBuilder() {
                       <div className="mb-2 flex items-center gap-2 font-semibold text-white">
                         <Lock size={16} /> Advisor Access
                       </div>
-                      Demo advisor password:{" "}
-                      <span className="font-bold text-white">advisor</span>
+                      Enter your private advisor password to access the builder.
                     </div>
 
                     <label className="mb-2 block text-sm font-semibold text-gray-200">
@@ -744,15 +761,19 @@ export default function NemnichIllustrationBuilder() {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter password"
                       onKeyDown={(e) => {
-                        if (e.key === "Enter" && password === "advisor") {
+                        if (e.key === "Enter" && password === advisorPassword) {
                           setAdvisorAuthenticated(true);
                         }
                       }}
                     />
 
                     <Button
-                      className="mt-4 w-full rounded-xl py-6 text-base"
-                      onClick={() => setAdvisorAuthenticated(password === "advisor")}
+                      className="mt-4 w-full rounded-xl py-6 text-base font-bold"
+                      style={{
+                        backgroundColor: loginTheme.buttonBackground,
+                        color: loginTheme.buttonText,
+                      }}
+                      onClick={() => setAdvisorAuthenticated(password === advisorPassword)}
                     >
                       Enter Advisor Builder
                     </Button>
@@ -810,7 +831,11 @@ export default function NemnichIllustrationBuilder() {
                     />
 
                     <Button
-                      className="mt-4 w-full rounded-xl py-6 text-base"
+                      className="mt-4 w-full rounded-xl py-6 text-base font-bold"
+                      style={{
+                        backgroundColor: loginTheme.buttonBackground,
+                        color: loginTheme.buttonText,
+                      }}
                       onClick={handleClientPortalLogin}
                     >
                       Enter Client Portal
@@ -1062,7 +1087,6 @@ export default function NemnichIllustrationBuilder() {
                           Test connection, save clients, and publish summaries.
                         </p>
                       </div>
-                      <Database size={20} />
                     </div>
 
                     <div className="mb-3 flex flex-wrap gap-2">
@@ -1084,8 +1108,8 @@ export default function NemnichIllustrationBuilder() {
 
                 <Card className="rounded-3xl shadow-sm">
                   <CardContent className="p-5">
-                    <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
-                      <User size={18} /> Client Profile
+                    <h2 className="mb-4 text-lg font-bold">
+                      Client Profile
                     </h2>
 
                     <div className="grid gap-3 sm:grid-cols-2">
