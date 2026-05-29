@@ -1,5 +1,9 @@
 "use client";
 
+/* =========================================================
+   SECTION 1: IMPORTS
+========================================================= */
+
 import { supabase } from "@/lib/supabaseClient";
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -18,12 +22,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+/* =========================================================
+   SECTION 2: CARRIER DATA
+========================================================= */
+
 const carriers = {
   Ameritas: {
     name: "Ameritas",
     logo: "/carriers/ameritas-logo.png",
   },
 };
+
+/* =========================================================
+   SECTION 3: DEFAULT BRAND SETTINGS
+========================================================= */
 
 const defaultBrand = {
   businessName: "Nemnich Life & Wealth",
@@ -40,8 +52,13 @@ const defaultBrand = {
   logoImage: "",
 };
 
+/* =========================================================
+   SECTION 4: DEFAULT CUSTOMIZATION SETTINGS
+========================================================= */
+
 const defaultCustomization = {
   fontFamily: "Inter, Arial, sans-serif",
+
   login: {
     background: "#0F172A",
     cardBackground: "rgba(255,255,255,0.08)",
@@ -60,6 +77,7 @@ const defaultCustomization = {
     inputRoundness: "12px",
     buttonRoundness: "12px",
   },
+
   previewHeader: {
     background: "#111827",
     titleColor: "#FFFFFF",
@@ -73,6 +91,7 @@ const defaultCustomization = {
     titleSize: "36px",
     subtitleSize: "14px",
   },
+
   clientGoal: {
     background: "#F9FAFB",
     titleColor: "#C7A95B",
@@ -81,6 +100,7 @@ const defaultCustomization = {
     textSize: "18px",
     roundness: "24px",
   },
+
   strategyPurpose: {
     background: "#F9FAFB",
     titleColor: "#C7A95B",
@@ -89,6 +109,7 @@ const defaultCustomization = {
     textSize: "14px",
     roundness: "24px",
   },
+
   mainPolicyPoints: {
     background: "#FFFFFF",
     titleColor: "#111827",
@@ -98,6 +119,7 @@ const defaultCustomization = {
     textSize: "14px",
     roundness: "24px",
   },
+
   policyDetails: {
     background: "#FFFFFF",
     titleColor: "#111827",
@@ -109,6 +131,7 @@ const defaultCustomization = {
     roundness: "24px",
     rowRoundness: "12px",
   },
+
   comparison: {
     background: "#FFFFFF",
     titleColor: "#111827",
@@ -118,6 +141,7 @@ const defaultCustomization = {
     textSize: "14px",
     roundness: "24px",
   },
+
   disclosure: {
     background: "#FFFBEB",
     borderColor: "#FDE68A",
@@ -127,12 +151,17 @@ const defaultCustomization = {
     textSize: "14px",
     roundness: "24px",
   },
+
   footer: {
     textColor: "#6B7280",
     strongTextColor: "#111827",
     textSize: "14px",
   },
 };
+
+/* =========================================================
+   SECTION 5: PRODUCT TEMPLATES
+========================================================= */
 
 const productTemplates = {
   "Fixed Indexed Annuity": {
@@ -158,6 +187,7 @@ const productTemplates = {
       "Estimated Annual Income",
     ],
   },
+
   "Income Annuity": {
     goal: "Convert a lump sum into a dependable income stream.",
     mainPoints: [
@@ -178,6 +208,7 @@ const productTemplates = {
       "Liquidity Feature",
     ],
   },
+
   "Indexed Universal Life": {
     goal: "Life insurance protection with tax-advantaged cash value potential.",
     mainPoints: [
@@ -201,6 +232,7 @@ const productTemplates = {
       "Projected Income Strategy",
     ],
   },
+
   "Term Life": {
     goal: "Affordable death benefit protection for a specific period of time.",
     mainPoints: [
@@ -220,6 +252,7 @@ const productTemplates = {
       "Riders",
     ],
   },
+
   "Whole Life": {
     goal: "Permanent life insurance with guarantees and cash value accumulation.",
     mainPoints: [
@@ -239,6 +272,7 @@ const productTemplates = {
       "Riders",
     ],
   },
+
   "Disability Income": {
     goal: "Protect income if the client becomes unable to work due to illness or injury.",
     mainPoints: [
@@ -262,6 +296,10 @@ const productTemplates = {
   },
 };
 
+/* =========================================================
+   SECTION 6: COMPARISON ROWS
+========================================================= */
+
 const comparisonRows = [
   "Primary Goal",
   "Market Loss Protection",
@@ -273,6 +311,10 @@ const comparisonRows = [
   "Best Fit",
   "Main Consideration",
 ];
+
+/* =========================================================
+   SECTION 7: CLICKABLE FIELD DEFINITIONS
+========================================================= */
 
 const fieldDefinitions = {
   "Initial Premium":
@@ -357,6 +399,10 @@ const fieldDefinitions = {
     "A feature where the carrier generally must keep coverage renewable if premiums are paid, but premiums may be changed by class.",
 };
 
+/* =========================================================
+   SECTION 8: GLOBAL HELPER CLASSES
+========================================================= */
+
 function inputClass() {
   return "w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-100";
 }
@@ -368,6 +414,10 @@ function labelClass() {
 function smallButtonClass() {
   return "rounded-xl border px-3 py-2 text-xs font-bold hover:bg-gray-50";
 }
+
+/* =========================================================
+   SECTION 9: CUSTOMIZATION MERGE HELPER
+========================================================= */
 
 function deepMergeCustomization(saved) {
   return {
@@ -409,8 +459,16 @@ function deepMergeCustomization(saved) {
   };
 }
 
+/* =========================================================
+   SECTION 10: MAIN COMPONENT
+========================================================= */
+
 export default function NemnichIllustrationBuilder() {
   const advisorPassword = process.env.NEXT_PUBLIC_ADVISOR_PASSWORD || "advisor";
+
+  /* =========================================================
+     SECTION 10A: LOGIN + PORTAL STATE
+  ========================================================= */
 
   const [portalMode, setPortalMode] = useState("advisor");
   const [advisorAuthenticated, setAdvisorAuthenticated] = useState(false);
@@ -422,13 +480,36 @@ export default function NemnichIllustrationBuilder() {
     accessCode: "",
   });
 
+  /* =========================================================
+     SECTION 10B: BRANDING + CUSTOMIZATION STATE
+  ========================================================= */
+
   const [dbMessage, setDbMessage] = useState("");
   const [brand, setBrand] = useState(defaultBrand);
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState("builder");
   const [selectedDefinition, setSelectedDefinition] = useState(null);
 
-  const [selectedProduct, setSelectedProduct] = useState("Fixed Indexed Annuity");
+  const [openCustomizationSections, setOpenCustomizationSections] = useState({
+    globalFont: true,
+    loginPage: false,
+    previewHeader: false,
+    clientGoal: false,
+    strategyPurpose: false,
+    mainPolicyPoints: false,
+    policyDetails: false,
+    comparison: false,
+    disclosure: false,
+    footer: false,
+  });
+
+  /* =========================================================
+     SECTION 10C: PRODUCT + ILLUSTRATION STATE
+  ========================================================= */
+
+  const [selectedProduct, setSelectedProduct] = useState(
+    "Fixed Indexed Annuity"
+  );
   const [selectedCarrier, setSelectedCarrier] = useState("Ameritas");
   const [compareMode, setCompareMode] = useState(false);
   const [comparisonProducts, setComparisonProducts] = useState([
@@ -510,10 +591,18 @@ export default function NemnichIllustrationBuilder() {
     },
   });
 
+  /* =========================================================
+     SECTION 10D: DERIVED VALUES
+  ========================================================= */
+
   const loginTheme = customization.login;
   const template = productTemplates[selectedProduct];
   const selectedCarrierData = carriers[selectedCarrier];
   const currentFields = useMemo(() => template.fields, [template]);
+
+  /* =========================================================
+     SECTION 11: LOCALSTORAGE LOAD
+  ========================================================= */
 
   useEffect(() => {
     try {
@@ -532,6 +621,10 @@ export default function NemnichIllustrationBuilder() {
       console.error("Unable to load saved settings:", error);
     }
   }, []);
+
+  /* =========================================================
+     SECTION 12: LOCALSTORAGE SAVE
+  ========================================================= */
 
   useEffect(() => {
     try {
@@ -552,11 +645,19 @@ export default function NemnichIllustrationBuilder() {
     }
   }, [customization]);
 
+  /* =========================================================
+     SECTION 13: LOAD CLIENTS AFTER ADVISOR LOGIN
+  ========================================================= */
+
   useEffect(() => {
     if (advisorAuthenticated) {
       loadSavedClients();
     }
   }, [advisorAuthenticated]);
+
+  /* =========================================================
+     SECTION 14: BRAND + CUSTOMIZATION FUNCTIONS
+  ========================================================= */
 
   function updateBrand(key, value) {
     setBrand((prev) => ({
@@ -587,6 +688,43 @@ export default function NemnichIllustrationBuilder() {
     setCustomization(defaultCustomization);
   }
 
+  function toggleCustomizationSection(sectionKey) {
+    setOpenCustomizationSections((prev) => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey],
+    }));
+  }
+
+  function openAllCustomizationSections() {
+    setOpenCustomizationSections({
+      globalFont: true,
+      loginPage: true,
+      previewHeader: true,
+      clientGoal: true,
+      strategyPurpose: true,
+      mainPolicyPoints: true,
+      policyDetails: true,
+      comparison: true,
+      disclosure: true,
+      footer: true,
+    });
+  }
+
+  function closeAllCustomizationSections() {
+    setOpenCustomizationSections({
+      globalFont: false,
+      loginPage: false,
+      previewHeader: false,
+      clientGoal: false,
+      strategyPurpose: false,
+      mainPolicyPoints: false,
+      policyDetails: false,
+      comparison: false,
+      disclosure: false,
+      footer: false,
+    });
+  }
+
   function handleLogoUpload(event) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -599,6 +737,10 @@ export default function NemnichIllustrationBuilder() {
   function resetBrandSettings() {
     setBrand(defaultBrand);
   }
+
+  /* =========================================================
+     SECTION 15: BUILDER FUNCTIONS
+  ========================================================= */
 
   function handleProductChange(product) {
     setSelectedProduct(product);
@@ -666,6 +808,10 @@ export default function NemnichIllustrationBuilder() {
       goal: illustration.client_goal || prev.goal,
     }));
   }
+
+  /* =========================================================
+     SECTION 16: SUPABASE FUNCTIONS
+  ========================================================= */
 
   async function testSupabaseConnection() {
     setDbMessage("Testing Supabase connection...");
@@ -954,6 +1100,10 @@ export default function NemnichIllustrationBuilder() {
     setActiveIllustrationPublished(false);
   }
 
+  /* =========================================================
+     SECTION 17: CUSTOMIZATION FORM CONTROLS
+  ========================================================= */
+
   function ColorControl({ section, field, label }) {
     return (
       <div className="rounded-2xl border bg-gray-50 p-3">
@@ -994,14 +1144,56 @@ export default function NemnichIllustrationBuilder() {
     );
   }
 
-  function CustomizationSection({ title, children }) {
+  function CustomizationSection({ sectionKey, title, children }) {
+    const isOpen = openCustomizationSections[sectionKey];
+
     return (
-      <div className="mb-5 rounded-2xl border bg-white p-4">
-        <h3 className="mb-3 font-black">{title}</h3>
-        <div className="grid gap-3 sm:grid-cols-2">{children}</div>
+      <div className="mb-4 overflow-hidden rounded-2xl border bg-white">
+        <button
+          type="button"
+          className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition hover:bg-gray-50"
+          onClick={() => toggleCustomizationSection(sectionKey)}
+        >
+          <div>
+            <h3 className="font-black text-gray-950">{title}</h3>
+            <p className="text-xs text-gray-500">
+              {isOpen
+                ? "Click to close this section"
+                : "Click to customize this section"}
+            </p>
+          </div>
+
+          <span
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-lg font-black transition-all duration-300 ${
+              isOpen
+                ? "rotate-45 bg-gray-950 text-white"
+                : "rotate-0 bg-white text-gray-950"
+            }`}
+          >
+            +
+          </span>
+        </button>
+
+        <div
+          className={`grid transition-all duration-300 ease-in-out ${
+            isOpen
+              ? "grid-rows-[1fr] opacity-100"
+              : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="grid gap-3 border-t bg-gray-50 p-4 sm:grid-cols-2">
+              {children}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
+
+  /* =========================================================
+     SECTION 18: CUSTOMIZATION TAB
+  ========================================================= */
 
   function CustomizationTab() {
     return (
@@ -1011,15 +1203,27 @@ export default function NemnichIllustrationBuilder() {
             <div>
               <h2 className="text-lg font-bold">Customization</h2>
               <p className="text-sm text-gray-500">
-                Customize login page, fonts, section colors, text colors, font sizes, logos, and roundness.
+                Customize login page, fonts, section colors, text colors, font
+                sizes, logos, and roundness.
               </p>
             </div>
-            <Button variant="outline" onClick={resetCustomizationSettings}>
-              Reset
-            </Button>
+
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" onClick={openAllCustomizationSections}>
+                Open All
+              </Button>
+
+              <Button variant="outline" onClick={closeAllCustomizationSections}>
+                Close All
+              </Button>
+
+              <Button variant="outline" onClick={resetCustomizationSettings}>
+                Reset
+              </Button>
+            </div>
           </div>
 
-          <CustomizationSection title="Global Font">
+          <CustomizationSection sectionKey="globalFont" title="Global Font">
             <div className="rounded-2xl border bg-gray-50 p-3 sm:col-span-2">
               <label className={labelClass()}>Font Family</label>
               <select
@@ -1041,7 +1245,7 @@ export default function NemnichIllustrationBuilder() {
             </div>
           </CustomizationSection>
 
-          <CustomizationSection title="Login Page">
+          <CustomizationSection sectionKey="loginPage" title="Login Page">
             <ColorControl section="login" field="background" label="Background" />
             <ColorControl section="login" field="cardBackground" label="Card Background" />
             <ColorControl section="login" field="titleColor" label="Title Text" />
@@ -1060,7 +1264,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="login" field="buttonRoundness" label="Button Roundness" placeholder="12px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Preview Header">
+          <CustomizationSection sectionKey="previewHeader" title="Preview Header">
             <ColorControl section="previewHeader" field="background" label="Header Background" />
             <ColorControl section="previewHeader" field="titleColor" label="Title Text" />
             <ColorControl section="previewHeader" field="subtitleColor" label="Subtitle Text" />
@@ -1074,7 +1278,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="previewHeader" field="carrierLogoRoundness" label="Carrier Logo Roundness" placeholder="8px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Client Goal">
+          <CustomizationSection sectionKey="clientGoal" title="Client Goal">
             <ColorControl section="clientGoal" field="background" label="Background" />
             <ColorControl section="clientGoal" field="titleColor" label="Title Text" />
             <ColorControl section="clientGoal" field="textColor" label="Body Text" />
@@ -1083,7 +1287,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="clientGoal" field="roundness" label="Roundness" placeholder="24px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Strategy Purpose">
+          <CustomizationSection sectionKey="strategyPurpose" title="Strategy Purpose">
             <ColorControl section="strategyPurpose" field="background" label="Background" />
             <ColorControl section="strategyPurpose" field="titleColor" label="Title Text" />
             <ColorControl section="strategyPurpose" field="textColor" label="Body Text" />
@@ -1092,7 +1296,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="strategyPurpose" field="roundness" label="Roundness" placeholder="24px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Main Policy Points">
+          <CustomizationSection sectionKey="mainPolicyPoints" title="Main Policy Points">
             <ColorControl section="mainPolicyPoints" field="background" label="Background" />
             <ColorControl section="mainPolicyPoints" field="titleColor" label="Title Text" />
             <ColorControl section="mainPolicyPoints" field="textColor" label="Body Text" />
@@ -1102,7 +1306,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="mainPolicyPoints" field="roundness" label="Roundness" placeholder="24px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Policy Details">
+          <CustomizationSection sectionKey="policyDetails" title="Policy Details">
             <ColorControl section="policyDetails" field="background" label="Background" />
             <ColorControl section="policyDetails" field="titleColor" label="Title Text" />
             <ColorControl section="policyDetails" field="labelColor" label="Label Text" />
@@ -1114,7 +1318,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="policyDetails" field="rowRoundness" label="Row Roundness" placeholder="12px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Comparison">
+          <CustomizationSection sectionKey="comparison" title="Comparison">
             <ColorControl section="comparison" field="background" label="Background" />
             <ColorControl section="comparison" field="titleColor" label="Title Text" />
             <ColorControl section="comparison" field="tableHeaderBackground" label="Table Header Background" />
@@ -1124,7 +1328,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="comparison" field="roundness" label="Roundness" placeholder="24px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Disclosure">
+          <CustomizationSection sectionKey="disclosure" title="Disclosure">
             <ColorControl section="disclosure" field="background" label="Background" />
             <ColorControl section="disclosure" field="borderColor" label="Border Color" />
             <ColorControl section="disclosure" field="titleColor" label="Title Text" />
@@ -1134,7 +1338,7 @@ export default function NemnichIllustrationBuilder() {
             <TextControl section="disclosure" field="roundness" label="Roundness" placeholder="24px" />
           </CustomizationSection>
 
-          <CustomizationSection title="Footer">
+          <CustomizationSection sectionKey="footer" title="Footer">
             <ColorControl section="footer" field="textColor" label="Footer Text" />
             <ColorControl section="footer" field="strongTextColor" label="Strong Text" />
             <TextControl section="footer" field="textSize" label="Footer Font Size" placeholder="14px" />
@@ -1143,6 +1347,10 @@ export default function NemnichIllustrationBuilder() {
       </Card>
     );
   }
+
+  /* =========================================================
+     SECTION 19: BRANDING TAB
+  ========================================================= */
 
   function BrandingTab() {
     return (
@@ -1239,6 +1447,10 @@ export default function NemnichIllustrationBuilder() {
       </Card>
     );
   }
+
+  /* =========================================================
+     SECTION 20: BUILDER TAB
+  ========================================================= */
 
   function BuilderTab() {
     return (
@@ -1421,7 +1633,10 @@ export default function NemnichIllustrationBuilder() {
             <h2 className="mb-4 text-lg font-bold">Client Info</h2>
             <div className="grid gap-3 sm:grid-cols-2">
               {Object.keys(client).map((key) => (
-                <div key={key} className={key === "goal" ? "sm:col-span-2" : ""}>
+                <div
+                  key={key}
+                  className={key === "goal" ? "sm:col-span-2" : ""}
+                >
                   <label className={labelClass()}>{key}</label>
                   {key === "goal" ? (
                     <textarea
@@ -1541,7 +1756,9 @@ export default function NemnichIllustrationBuilder() {
                   <span className="flex-1">{point}</span>
                   <button
                     onClick={() =>
-                      setCustomPoints(customPoints.filter((_, i) => i !== index))
+                      setCustomPoints(
+                        customPoints.filter((_, i) => i !== index)
+                      )
                     }
                   >
                     <Trash2 size={15} />
@@ -1685,6 +1902,10 @@ export default function NemnichIllustrationBuilder() {
       </>
     );
   }
+
+  /* =========================================================
+     SECTION 21: LOGIN PAGE
+  ========================================================= */
 
   if (!advisorAuthenticated && !clientAuthenticated) {
     return (
@@ -1919,6 +2140,10 @@ export default function NemnichIllustrationBuilder() {
     );
   }
 
+  /* =========================================================
+     SECTION 22: ADVISOR / CLIENT PORTAL MAIN VIEW
+  ========================================================= */
+
   return (
     <div
       className="min-h-screen text-gray-950"
@@ -1975,6 +2200,10 @@ export default function NemnichIllustrationBuilder() {
           }
         }
       `}</style>
+
+      {/* =====================================================
+          SECTION 23: TOP NAVIGATION
+      ===================================================== */}
 
       <div className="no-print border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
@@ -2049,20 +2278,28 @@ export default function NemnichIllustrationBuilder() {
         </div>
       </div>
 
+      {/* =====================================================
+          SECTION 24: MAIN GRID LAYOUT
+      ===================================================== */}
+
       <div
         className={`mx-auto grid max-w-7xl gap-6 p-5 ${
           clientAuthenticated ? "lg:grid-cols-1" : "lg:grid-cols-[420px_1fr]"
         }`}
       >
-    {advisorAuthenticated && (
-  <div className="no-print space-y-4">
-    {activeTab === "branding"
-      ? BrandingTab()
-      : activeTab === "customization"
-      ? CustomizationTab()
-      : BuilderTab()}
-  </div>
-)}
+        {advisorAuthenticated && (
+          <div className="no-print space-y-4">
+            {activeTab === "branding"
+              ? BrandingTab()
+              : activeTab === "customization"
+              ? CustomizationTab()
+              : BuilderTab()}
+          </div>
+        )}
+
+        {/* =====================================================
+            SECTION 25: CLIENT PORTAL STATUS PANEL
+        ===================================================== */}
 
         {clientAuthenticated && (
           <div className="no-print mx-auto mb-2 w-full max-w-4xl rounded-3xl bg-white p-5 shadow-sm">
@@ -2091,7 +2328,15 @@ export default function NemnichIllustrationBuilder() {
           </div>
         )}
 
+        {/* =====================================================
+            SECTION 26: CLIENT ILLUSTRATION PREVIEW / PRINT AREA
+        ===================================================== */}
+
         <div className="print-area mx-auto w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-xl">
+          {/* =====================================================
+              SECTION 26A: PREVIEW HEADER
+          ===================================================== */}
+
           <div
             className="p-8 text-white print-section"
             style={{ background: customization.previewHeader.background }}
@@ -2191,6 +2436,10 @@ export default function NemnichIllustrationBuilder() {
           </div>
 
           <div className="p-8">
+            {/* =====================================================
+                SECTION 26B: CLIENT GOAL + STRATEGY PURPOSE
+            ===================================================== */}
+
             <div className="print-section mb-6 grid gap-4 md:grid-cols-3">
               <div
                 className="border p-5 md:col-span-2"
@@ -2246,6 +2495,10 @@ export default function NemnichIllustrationBuilder() {
                 </p>
               </div>
             </div>
+
+            {/* =====================================================
+                SECTION 26C: MAIN POLICY POINTS + POLICY DETAILS
+            ===================================================== */}
 
             <div className="print-section mb-6 grid items-start gap-5 md:grid-cols-2">
               <section
@@ -2347,6 +2600,10 @@ export default function NemnichIllustrationBuilder() {
               </section>
             </div>
 
+            {/* =====================================================
+                SECTION 26D: PRODUCT COMPARISON
+            ===================================================== */}
+
             {compareMode && (
               <section
                 className="print-section mb-6 border p-5"
@@ -2401,6 +2658,10 @@ export default function NemnichIllustrationBuilder() {
               </section>
             )}
 
+            {/* =====================================================
+                SECTION 26E: IMPORTANT DISCLOSURE
+            ===================================================== */}
+
             <section
               className="print-section border p-5 leading-relaxed"
               style={{
@@ -2433,6 +2694,10 @@ export default function NemnichIllustrationBuilder() {
               </p>
             </section>
 
+            {/* =====================================================
+                SECTION 26F: FOOTER
+            ===================================================== */}
+
             <div
               className="mt-8 flex items-end justify-between border-t pt-5"
               style={{
@@ -2462,6 +2727,10 @@ export default function NemnichIllustrationBuilder() {
           </div>
         </div>
       </div>
+
+      {/* =====================================================
+          SECTION 27: FIELD DEFINITION POPUP
+      ===================================================== */}
 
       {selectedDefinition && (
         <div className="no-print fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
