@@ -820,6 +820,7 @@ export default function NemnichIllustrationBuilder() {
 
     if (error) {
       setDbMessage(`Supabase error: ${error.message}`);
+      alert(`Supabase error: ${error.message}`);
       return;
     }
 
@@ -858,60 +859,75 @@ export default function NemnichIllustrationBuilder() {
   }
 
   async function saveClientProfile() {
-    setDbMessage("Saving client profile...");
+    try {
+      setDbMessage("Saving client profile...");
 
-    const payload = {
-      first_name: clientProfile.firstName,
-      last_name: clientProfile.lastName,
-      date_of_birth: clientProfile.dateOfBirth || null,
-      email: clientProfile.email,
-      phone: clientProfile.phone,
-      access_code: clientProfile.accessCode,
-      status: clientProfile.status || "prospect",
-    };
+      const payload = {
+        first_name: clientProfile.firstName,
+        last_name: clientProfile.lastName,
+        date_of_birth: clientProfile.dateOfBirth || null,
+        email: clientProfile.email,
+        phone: clientProfile.phone,
+        access_code: clientProfile.accessCode,
+        status: clientProfile.status || "prospect",
+      };
 
-    if (!payload.last_name || !payload.access_code) {
-      setDbMessage("Last name and access code are required.");
-      return null;
-    }
-
-    if (activeClientId) {
-      const { data, error } = await supabase
-        .from("clients")
-        .update(payload)
-        .eq("id", activeClientId)
-        .select()
-        .single();
-
-      if (error) {
-        setDbMessage(`Could not update client: ${error.message}`);
+      if (!payload.last_name || !payload.access_code) {
+        const message = "Last name and access code are required.";
+        setDbMessage(message);
+        alert(message);
         return null;
       }
 
-      setDbMessage("Client profile updated.");
+      if (activeClientId) {
+        const { data, error } = await supabase
+          .from("clients")
+          .update(payload)
+          .eq("id", activeClientId)
+          .select("*")
+          .single();
+
+        if (error) {
+          const message = `Could not update client: ${error.message}`;
+          setDbMessage(message);
+          alert(message);
+          return null;
+        }
+
+        setDbMessage("Client profile updated.");
+        await loadSavedClients();
+        return data.id;
+      }
+
+      const { data, error } = await supabase
+        .from("clients")
+        .insert(payload)
+        .select("*")
+        .single();
+
+      if (error) {
+        const message = `Could not save client: ${error.message}`;
+        setDbMessage(message);
+        alert(message);
+        return null;
+      }
+
+      setActiveClientId(data.id);
+      setClient((prev) => ({
+        ...prev,
+        name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
+      }));
+
+      setDbMessage("Client profile saved.");
       await loadSavedClients();
       return data.id;
-    }
-
-    const { data, error } = await supabase
-      .from("clients")
-      .insert(payload)
-      .select()
-      .single();
-
-    if (error) {
-      setDbMessage(`Could not save client: ${error.message}`);
+    } catch (error) {
+      const message = `Unexpected client save error: ${error.message}`;
+      console.error("Unexpected client save error:", error);
+      setDbMessage(message);
+      alert(message);
       return null;
     }
-
-    setActiveClientId(data.id);
-    setClient((prev) => ({
-      ...prev,
-      name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
-    }));
-    setDbMessage("Client profile saved.");
-    await loadSavedClients();
-    return data.id;
   }
 
   async function selectAdvisorClient(savedClient) {
@@ -941,95 +957,148 @@ export default function NemnichIllustrationBuilder() {
   }
 
   async function saveIllustrationToClient() {
-    let clientId = activeClientId;
+    try {
+      setDbMessage("Saving illustration...");
 
-    if (!clientId) {
-      clientId = await saveClientProfile();
-    }
+      let clientId = activeClientId;
 
-    if (!clientId) {
-      setDbMessage("Save a client profile before saving the illustration.");
-      return;
-    }
+      if (!clientId) {
+        setDbMessage("No active client selected. Saving client profile first...");
+        clientId = await saveClientProfile();
+      }
 
-    setDbMessage("Saving illustration...");
-
-    const payload = {
-      client_id: clientId,
-      product_type: selectedProduct,
-      carrier: selectedCarrier,
-      client_goal: client.goal,
-      details,
-      custom_points: customPoints,
-      comparison_data: comparisonData,
-      comparison_products: comparisonProducts,
-      compare_mode: compareMode,
-      updated_at: new Date().toISOString(),
-    };
-
-    if (activeIllustrationId) {
-      const { data, error } = await supabase
-        .from("illustrations")
-        .update(payload)
-        .eq("id", activeIllustrationId)
-        .select()
-        .single();
-
-      if (error) {
-        setDbMessage(`Could not update illustration: ${error.message}`);
+      if (!clientId) {
+        const message =
+          "Could not save illustration because no client profile is selected or saved.";
+        setDbMessage(message);
+        alert(message);
         return;
       }
 
-      setDbMessage("Illustration updated.");
+      const payload = {
+        client_id: clientId,
+        product_type: selectedProduct,
+        carrier: selectedCarrier,
+        client_goal: client.goal || "",
+        details: details || {},
+        custom_points: customPoints || [],
+        comparison_data: comparisonData || {},
+        comparison_products: comparisonProducts || [],
+        compare_mode: Boolean(compareMode),
+        updated_at: new Date().toISOString(),
+      };
+
+      console.log("Saving illustration payload:", payload);
+
+      if (activeIllustrationId) {
+        const { data, error } = await supabase
+          .from("illustrations")
+          .update(payload)
+          .eq("id", activeIllustrationId)
+          .select("*")
+          .single();
+
+        if (error) {
+          console.error("Illustration update error:", error);
+          const message = `Could not update illustration: ${error.message}`;
+          setDbMessage(message);
+          alert(message);
+          return;
+        }
+
+        setActiveClientId(clientId);
+        setActiveIllustrationId(data.id);
+        setActiveIllustrationPublished(Boolean(data.is_published));
+
+        applyIllustrationToBuilder(data);
+        await loadIllustrationsForClient(clientId);
+
+        setDbMessage("Illustration updated and saved to client.");
+        alert("Illustration updated and saved to client.");
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("illustrations")
+        .insert(payload)
+        .select("*")
+        .single();
+
+      if (error) {
+        console.error("Illustration insert error:", error);
+        const message = `Could not save illustration: ${error.message}`;
+        setDbMessage(message);
+        alert(message);
+        return;
+      }
+
+      setActiveClientId(clientId);
+      setActiveIllustrationId(data.id);
+      setActiveIllustrationPublished(Boolean(data.is_published));
+
       applyIllustrationToBuilder(data);
       await loadIllustrationsForClient(clientId);
-      return;
+
+      setDbMessage("Illustration saved to client.");
+      alert("Illustration saved to client.");
+    } catch (error) {
+      console.error("Unexpected save illustration error:", error);
+      const message = `Unexpected save error: ${error.message}`;
+      setDbMessage(message);
+      alert(message);
     }
-
-    const { data, error } = await supabase
-      .from("illustrations")
-      .insert(payload)
-      .select()
-      .single();
-
-    if (error) {
-      setDbMessage(`Could not save illustration: ${error.message}`);
-      return;
-    }
-
-    setDbMessage("Illustration saved to client.");
-    applyIllustrationToBuilder(data);
-    await loadIllustrationsForClient(clientId);
   }
 
   async function setPublishedStatus(status) {
-    if (!activeIllustrationId) {
-      setDbMessage("Select or save an illustration first.");
-      return;
-    }
+    try {
+      if (!activeIllustrationId) {
+        const message =
+          "No illustration is saved yet. Click Save Illustration to Client first, then publish.";
+        setDbMessage(message);
+        alert(message);
+        return;
+      }
 
-    const { data, error } = await supabase
-      .from("illustrations")
-      .update({
-        is_published: status,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", activeIllustrationId)
-      .select()
-      .single();
+      setDbMessage(
+        status ? "Publishing illustration..." : "Unpublishing illustration..."
+      );
 
-    if (error) {
-      setDbMessage(`Could not update publish status: ${error.message}`);
-      return;
-    }
+      const { data, error } = await supabase
+        .from("illustrations")
+        .update({
+          is_published: Boolean(status),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", activeIllustrationId)
+        .select("*")
+        .single();
 
-    setActiveIllustrationPublished(Boolean(data.is_published));
-    setDbMessage(
-      status
+      if (error) {
+        console.error("Publish status error:", error);
+        const message = `Could not update publish status: ${error.message}`;
+        setDbMessage(message);
+        alert(message);
+        return;
+      }
+
+      setActiveIllustrationPublished(Boolean(data.is_published));
+
+      if (data.client_id) {
+        await loadIllustrationsForClient(data.client_id);
+      }
+
+      const message = status
         ? "Illustration published to client portal."
-        : "Illustration unpublished."
-    );
-    await loadIllustrationsForClient(data.client_id);
+        : "Illustration unpublished.";
+
+      setDbMessage(message);
+      alert(message);
+    } catch (error) {
+      console.error("Unexpected publish error:", error);
+      const message = `Unexpected publish error: ${error.message}`;
+      setDbMessage(message);
+      alert(message);
+    }
   }
 
   async function handleClientPortalLogin() {
@@ -1861,13 +1930,21 @@ export default function NemnichIllustrationBuilder() {
               <Button onClick={saveIllustrationToClient}>
                 Save Illustration to Client
               </Button>
+
               <Button variant="outline" onClick={() => setPublishedStatus(true)}>
                 Publish
               </Button>
+
               <Button variant="outline" onClick={() => setPublishedStatus(false)}>
                 Unpublish
               </Button>
             </div>
+
+            {dbMessage && (
+              <div className="mt-4 rounded-2xl bg-gray-50 p-3 text-sm font-medium text-gray-700">
+                {dbMessage}
+              </div>
+            )}
 
             {savedIllustrations.length > 0 && (
               <div className="mt-5">
