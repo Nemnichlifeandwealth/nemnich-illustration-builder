@@ -40,6 +40,100 @@ const defaultBrand = {
   logoImage: "",
 };
 
+const defaultCustomization = {
+  fontFamily: "Inter, Arial, sans-serif",
+  login: {
+    background: "#0F172A",
+    cardBackground: "rgba(255,255,255,0.08)",
+    titleColor: "#FFFFFF",
+    subtitleColor: "#D1D5DB",
+    labelColor: "#E5E7EB",
+    helpTextColor: "#E5E7EB",
+    buttonBackground: "#C7A95B",
+    buttonText: "#111827",
+    tabActiveBackground: "#FFFFFF",
+    tabActiveText: "#111827",
+    tabInactiveText: "#FFFFFF",
+    logoPath: "/nlw-logo.png",
+    logoRoundness: "16px",
+    cardRoundness: "24px",
+    inputRoundness: "12px",
+    buttonRoundness: "12px",
+  },
+  previewHeader: {
+    background: "#111827",
+    titleColor: "#FFFFFF",
+    subtitleColor: "rgba(255,255,255,0.8)",
+    badgeBackground: "rgba(255,255,255,0.1)",
+    badgeTextColor: "#FFFFFF",
+    carrierBoxBackground: "#FFFFFF",
+    carrierTextColor: "#111827",
+    logoRoundness: "16px",
+    carrierLogoRoundness: "8px",
+    titleSize: "36px",
+    subtitleSize: "14px",
+  },
+  clientGoal: {
+    background: "#F9FAFB",
+    titleColor: "#C7A95B",
+    textColor: "#111827",
+    titleSize: "14px",
+    textSize: "18px",
+    roundness: "24px",
+  },
+  strategyPurpose: {
+    background: "#F9FAFB",
+    titleColor: "#C7A95B",
+    textColor: "#111827",
+    titleSize: "14px",
+    textSize: "14px",
+    roundness: "24px",
+  },
+  mainPolicyPoints: {
+    background: "#FFFFFF",
+    titleColor: "#111827",
+    textColor: "#111827",
+    bulletColor: "#C7A95B",
+    titleSize: "20px",
+    textSize: "14px",
+    roundness: "24px",
+  },
+  policyDetails: {
+    background: "#FFFFFF",
+    titleColor: "#111827",
+    labelColor: "#6B7280",
+    valueColor: "#111827",
+    rowBackground: "#F9FAFB",
+    titleSize: "20px",
+    textSize: "14px",
+    roundness: "24px",
+    rowRoundness: "12px",
+  },
+  comparison: {
+    background: "#FFFFFF",
+    titleColor: "#111827",
+    tableHeaderBackground: "#F3F4F6",
+    textColor: "#111827",
+    titleSize: "20px",
+    textSize: "14px",
+    roundness: "24px",
+  },
+  disclosure: {
+    background: "#FFFBEB",
+    borderColor: "#FDE68A",
+    titleColor: "#78350F",
+    textColor: "#78350F",
+    titleSize: "14px",
+    textSize: "14px",
+    roundness: "24px",
+  },
+  footer: {
+    textColor: "#6B7280",
+    strongTextColor: "#111827",
+    textSize: "14px",
+  },
+};
+
 const productTemplates = {
   "Fixed Indexed Annuity": {
     goal: "Protected, tax-deferred growth with future income potential.",
@@ -180,6 +274,89 @@ const comparisonRows = [
   "Main Consideration",
 ];
 
+const fieldDefinitions = {
+  "Initial Premium":
+    "The amount of money placed into the policy or annuity at the start.",
+  "Additional Premium":
+    "Extra money that may be added after the initial premium, depending on product rules.",
+  Bonus:
+    "A credit some products may add to contract value, subject to carrier terms, vesting, and surrender rules.",
+  "Surrender Period":
+    "The period when withdrawals above allowed amounts may trigger surrender charges.",
+  "Index Strategy":
+    "The index-linked crediting method used to calculate potential interest.",
+  "Participation Rate":
+    "The percentage of index gains used in the interest-crediting calculation.",
+  "Cap Rate":
+    "The maximum interest rate that can be credited for a specific period.",
+  Floor:
+    "The minimum credited interest rate for the strategy, subject to contract terms.",
+  "Income Rider":
+    "An optional feature designed to provide a future income benefit, often for an additional cost.",
+  "Estimated Income Start Date":
+    "The date the client may begin taking income based on illustration assumptions.",
+  "Estimated Annual Income":
+    "The projected yearly income amount shown in the official carrier illustration.",
+  "Premium Amount":
+    "The amount used to purchase or fund the product.",
+  "Income Start Date":
+    "The date income payments are expected to begin.",
+  "Payout Option":
+    "The selected method of receiving income, such as life-only, joint life, or period certain.",
+  "Monthly Income":
+    "The estimated monthly income payment shown in the illustration.",
+  "Annual Income":
+    "The estimated yearly income payment shown in the illustration.",
+  "Period Certain":
+    "A guaranteed payment period where income continues for a set number of years.",
+  "Beneficiary Option":
+    "The option determining what may pass to beneficiaries.",
+  "Liquidity Feature":
+    "A feature that may allow limited access to funds, subject to contract rules.",
+  "Annual Premium":
+    "The amount paid into the policy each year.",
+  "Death Benefit":
+    "The amount payable to beneficiaries if the insured passes away, subject to policy terms.",
+  "Option A or B":
+    "A life insurance death benefit structure. Option A is generally level; Option B generally increases with cash value.",
+  "Years Funded":
+    "The number of years premiums are planned to be paid into the policy.",
+  "Living Benefits":
+    "Benefits that may allow access to part of the death benefit while alive after qualifying illness or injury.",
+  "Projected Cash Value":
+    "The estimated future policy value based on illustration assumptions.",
+  "Projected Income Strategy":
+    "A possible way to access policy values in the future, often through withdrawals or policy loans.",
+  "Monthly Premium":
+    "The amount paid each month to keep the policy active.",
+  "Term Length":
+    "The number of years the term life policy is designed to last.",
+  "Conversion Option":
+    "A feature that may allow a term policy to be converted into permanent coverage.",
+  Riders:
+    "Optional policy features that can add benefits or change how the policy works.",
+  "Guaranteed Cash Value":
+    "The minimum cash value guaranteed by the policy contract.",
+  "Dividend Option":
+    "How policy dividends may be used, if the policy is eligible and dividends are declared.",
+  "Paid-Up Additions":
+    "Additional paid-up insurance purchased using dividends or extra premium, depending on the policy.",
+  "Monthly Benefit":
+    "The monthly disability income benefit payable if the insured qualifies for a claim.",
+  "Elimination Period":
+    "The waiting period before disability benefits begin.",
+  "Benefit Period":
+    "The maximum length of time disability benefits may be paid.",
+  "Occupation Class":
+    "A rating category based on the insured’s job duties and risk level.",
+  "Own-Occupation Definition":
+    "A disability definition based on whether the insured can perform the duties of their own occupation.",
+  "Non-Cancelable":
+    "A feature where the carrier generally cannot cancel the policy, increase premiums, or change benefits if premiums are paid.",
+  "Guaranteed Renewable":
+    "A feature where the carrier generally must keep coverage renewable if premiums are paid, but premiums may be changed by class.",
+};
+
 function inputClass() {
   return "w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-100";
 }
@@ -192,17 +369,48 @@ function smallButtonClass() {
   return "rounded-xl border px-3 py-2 text-xs font-bold hover:bg-gray-50";
 }
 
+function deepMergeCustomization(saved) {
+  return {
+    ...defaultCustomization,
+    ...saved,
+    login: { ...defaultCustomization.login, ...(saved?.login || {}) },
+    previewHeader: {
+      ...defaultCustomization.previewHeader,
+      ...(saved?.previewHeader || {}),
+    },
+    clientGoal: {
+      ...defaultCustomization.clientGoal,
+      ...(saved?.clientGoal || {}),
+    },
+    strategyPurpose: {
+      ...defaultCustomization.strategyPurpose,
+      ...(saved?.strategyPurpose || {}),
+    },
+    mainPolicyPoints: {
+      ...defaultCustomization.mainPolicyPoints,
+      ...(saved?.mainPolicyPoints || {}),
+    },
+    policyDetails: {
+      ...defaultCustomization.policyDetails,
+      ...(saved?.policyDetails || {}),
+    },
+    comparison: {
+      ...defaultCustomization.comparison,
+      ...(saved?.comparison || {}),
+    },
+    disclosure: {
+      ...defaultCustomization.disclosure,
+      ...(saved?.disclosure || {}),
+    },
+    footer: {
+      ...defaultCustomization.footer,
+      ...(saved?.footer || {}),
+    },
+  };
+}
+
 export default function NemnichIllustrationBuilder() {
   const advisorPassword = process.env.NEXT_PUBLIC_ADVISOR_PASSWORD || "advisor";
-
-  const loginTheme = {
-    background: "#0F172A",
-    cardBackground: "rgba(255,255,255,0.08)",
-    accent: "#C7A95B",
-    buttonBackground: "#C7A95B",
-    buttonText: "#111827",
-    logoPath: "/nlw-logo.png",
-  };
 
   const [portalMode, setPortalMode] = useState("advisor");
   const [advisorAuthenticated, setAdvisorAuthenticated] = useState(false);
@@ -216,7 +424,10 @@ export default function NemnichIllustrationBuilder() {
 
   const [dbMessage, setDbMessage] = useState("");
   const [brand, setBrand] = useState(defaultBrand);
+  const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState("builder");
+  const [selectedDefinition, setSelectedDefinition] = useState(null);
+
   const [selectedProduct, setSelectedProduct] = useState("Fixed Indexed Annuity");
   const [selectedCarrier, setSelectedCarrier] = useState("Ameritas");
   const [compareMode, setCompareMode] = useState(false);
@@ -299,14 +510,26 @@ export default function NemnichIllustrationBuilder() {
     },
   });
 
+  const loginTheme = customization.login;
+  const template = productTemplates[selectedProduct];
+  const selectedCarrierData = carriers[selectedCarrier];
+  const currentFields = useMemo(() => template.fields, [template]);
+
   useEffect(() => {
     try {
       const savedBrand = window.localStorage.getItem("nlw-brand-settings");
       if (savedBrand) {
         setBrand({ ...defaultBrand, ...JSON.parse(savedBrand) });
       }
+
+      const savedCustomization = window.localStorage.getItem(
+        "nlw-customization-settings"
+      );
+      if (savedCustomization) {
+        setCustomization(deepMergeCustomization(JSON.parse(savedCustomization)));
+      }
     } catch (error) {
-      console.error("Unable to load saved brand settings:", error);
+      console.error("Unable to load saved settings:", error);
     }
   }, []);
 
@@ -319,20 +542,49 @@ export default function NemnichIllustrationBuilder() {
   }, [brand]);
 
   useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        "nlw-customization-settings",
+        JSON.stringify(customization)
+      );
+    } catch (error) {
+      console.error("Unable to save customization settings:", error);
+    }
+  }, [customization]);
+
+  useEffect(() => {
     if (advisorAuthenticated) {
       loadSavedClients();
     }
   }, [advisorAuthenticated]);
-
-  const template = productTemplates[selectedProduct];
-  const selectedCarrierData = carriers[selectedCarrier];
-  const currentFields = useMemo(() => template.fields, [template]);
 
   function updateBrand(key, value) {
     setBrand((prev) => ({
       ...prev,
       [key]: value,
     }));
+  }
+
+  function updateCustomization(section, key, value) {
+    if (section === "root") {
+      setCustomization((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+      return;
+    }
+
+    setCustomization((prev) => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [key]: value,
+      },
+    }));
+  }
+
+  function resetCustomizationSettings() {
+    setCustomization(defaultCustomization);
   }
 
   function handleLogoUpload(event) {
@@ -377,6 +629,15 @@ export default function NemnichIllustrationBuilder() {
 
   function printPage() {
     window.print();
+  }
+
+  function openDefinition(field) {
+    setSelectedDefinition({
+      term: field,
+      definition:
+        fieldDefinitions[field] ||
+        "Definition not added yet. This term can be added to the fieldDefinitions object inside the code.",
+    });
   }
 
   function applyIllustrationToBuilder(illustration) {
@@ -528,7 +789,9 @@ export default function NemnichIllustrationBuilder() {
     }));
 
     await loadIllustrationsForClient(savedClient.id);
-    setDbMessage(`Loaded ${savedClient.first_name || ""} ${savedClient.last_name || ""}.`);
+    setDbMessage(
+      `Loaded ${savedClient.first_name || ""} ${savedClient.last_name || ""}.`
+    );
   }
 
   async function saveIllustrationToClient() {
@@ -615,7 +878,11 @@ export default function NemnichIllustrationBuilder() {
     }
 
     setActiveIllustrationPublished(Boolean(data.is_published));
-    setDbMessage(status ? "Illustration published to client portal." : "Illustration unpublished.");
+    setDbMessage(
+      status
+        ? "Illustration published to client portal."
+        : "Illustration unpublished."
+    );
     await loadIllustrationsForClient(data.client_id);
   }
 
@@ -653,7 +920,9 @@ export default function NemnichIllustrationBuilder() {
       .order("created_at", { ascending: false });
 
     if (illustrationError) {
-      setDbMessage(`Could not load client illustrations: ${illustrationError.message}`);
+      setDbMessage(
+        `Could not load client illustrations: ${illustrationError.message}`
+      );
       return;
     }
 
@@ -685,11 +954,746 @@ export default function NemnichIllustrationBuilder() {
     setActiveIllustrationPublished(false);
   }
 
+  function ColorControl({ section, field, label }) {
+    return (
+      <div className="rounded-2xl border bg-gray-50 p-3">
+        <label className={labelClass()}>{label}</label>
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            className="h-11 w-14 cursor-pointer rounded-xl border bg-white p-1"
+            value={customization[section][field]}
+            onChange={(e) => updateCustomization(section, field, e.target.value)}
+          />
+          <input
+            className={inputClass()}
+            value={customization[section][field]}
+            onChange={(e) => updateCustomization(section, field, e.target.value)}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  function TextControl({ section, field, label, placeholder }) {
+    const value =
+      section === "root"
+        ? customization[field]
+        : customization[section][field];
+
+    return (
+      <div className="rounded-2xl border bg-gray-50 p-3">
+        <label className={labelClass()}>{label}</label>
+        <input
+          className={inputClass()}
+          value={value}
+          placeholder={placeholder || ""}
+          onChange={(e) => updateCustomization(section, field, e.target.value)}
+        />
+      </div>
+    );
+  }
+
+  function CustomizationSection({ title, children }) {
+    return (
+      <div className="mb-5 rounded-2xl border bg-white p-4">
+        <h3 className="mb-3 font-black">{title}</h3>
+        <div className="grid gap-3 sm:grid-cols-2">{children}</div>
+      </div>
+    );
+  }
+
+  function CustomizationTab() {
+    return (
+      <Card className="rounded-3xl shadow-sm">
+        <CardContent className="p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold">Customization</h2>
+              <p className="text-sm text-gray-500">
+                Customize login page, fonts, section colors, text colors, font sizes, logos, and roundness.
+              </p>
+            </div>
+            <Button variant="outline" onClick={resetCustomizationSettings}>
+              Reset
+            </Button>
+          </div>
+
+          <CustomizationSection title="Global Font">
+            <div className="rounded-2xl border bg-gray-50 p-3 sm:col-span-2">
+              <label className={labelClass()}>Font Family</label>
+              <select
+                className={inputClass()}
+                value={customization.fontFamily}
+                onChange={(e) =>
+                  setCustomization((prev) => ({
+                    ...prev,
+                    fontFamily: e.target.value,
+                  }))
+                }
+              >
+                <option value="Inter, Arial, sans-serif">Inter / Arial</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="'Courier New', monospace">Courier New</option>
+              </select>
+            </div>
+          </CustomizationSection>
+
+          <CustomizationSection title="Login Page">
+            <ColorControl section="login" field="background" label="Background" />
+            <ColorControl section="login" field="cardBackground" label="Card Background" />
+            <ColorControl section="login" field="titleColor" label="Title Text" />
+            <ColorControl section="login" field="subtitleColor" label="Subtitle Text" />
+            <ColorControl section="login" field="labelColor" label="Label Text" />
+            <ColorControl section="login" field="helpTextColor" label="Help Text" />
+            <ColorControl section="login" field="buttonBackground" label="Button Background" />
+            <ColorControl section="login" field="buttonText" label="Button Text" />
+            <ColorControl section="login" field="tabActiveBackground" label="Active Tab Background" />
+            <ColorControl section="login" field="tabActiveText" label="Active Tab Text" />
+            <ColorControl section="login" field="tabInactiveText" label="Inactive Tab Text" />
+            <TextControl section="login" field="logoPath" label="Login Logo Path" placeholder="/nlw-logo.png" />
+            <TextControl section="login" field="logoRoundness" label="Logo Roundness" placeholder="16px" />
+            <TextControl section="login" field="cardRoundness" label="Card Roundness" placeholder="24px" />
+            <TextControl section="login" field="inputRoundness" label="Input Roundness" placeholder="12px" />
+            <TextControl section="login" field="buttonRoundness" label="Button Roundness" placeholder="12px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Preview Header">
+            <ColorControl section="previewHeader" field="background" label="Header Background" />
+            <ColorControl section="previewHeader" field="titleColor" label="Title Text" />
+            <ColorControl section="previewHeader" field="subtitleColor" label="Subtitle Text" />
+            <ColorControl section="previewHeader" field="badgeBackground" label="Badge Background" />
+            <ColorControl section="previewHeader" field="badgeTextColor" label="Badge Text" />
+            <ColorControl section="previewHeader" field="carrierBoxBackground" label="Carrier Box Background" />
+            <ColorControl section="previewHeader" field="carrierTextColor" label="Carrier Text" />
+            <TextControl section="previewHeader" field="titleSize" label="Title Font Size" placeholder="36px" />
+            <TextControl section="previewHeader" field="subtitleSize" label="Subtitle Font Size" placeholder="14px" />
+            <TextControl section="previewHeader" field="logoRoundness" label="Business Logo Roundness" placeholder="16px" />
+            <TextControl section="previewHeader" field="carrierLogoRoundness" label="Carrier Logo Roundness" placeholder="8px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Client Goal">
+            <ColorControl section="clientGoal" field="background" label="Background" />
+            <ColorControl section="clientGoal" field="titleColor" label="Title Text" />
+            <ColorControl section="clientGoal" field="textColor" label="Body Text" />
+            <TextControl section="clientGoal" field="titleSize" label="Title Size" placeholder="14px" />
+            <TextControl section="clientGoal" field="textSize" label="Text Size" placeholder="18px" />
+            <TextControl section="clientGoal" field="roundness" label="Roundness" placeholder="24px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Strategy Purpose">
+            <ColorControl section="strategyPurpose" field="background" label="Background" />
+            <ColorControl section="strategyPurpose" field="titleColor" label="Title Text" />
+            <ColorControl section="strategyPurpose" field="textColor" label="Body Text" />
+            <TextControl section="strategyPurpose" field="titleSize" label="Title Size" placeholder="14px" />
+            <TextControl section="strategyPurpose" field="textSize" label="Text Size" placeholder="14px" />
+            <TextControl section="strategyPurpose" field="roundness" label="Roundness" placeholder="24px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Main Policy Points">
+            <ColorControl section="mainPolicyPoints" field="background" label="Background" />
+            <ColorControl section="mainPolicyPoints" field="titleColor" label="Title Text" />
+            <ColorControl section="mainPolicyPoints" field="textColor" label="Body Text" />
+            <ColorControl section="mainPolicyPoints" field="bulletColor" label="Bullet Color" />
+            <TextControl section="mainPolicyPoints" field="titleSize" label="Title Size" placeholder="20px" />
+            <TextControl section="mainPolicyPoints" field="textSize" label="Text Size" placeholder="14px" />
+            <TextControl section="mainPolicyPoints" field="roundness" label="Roundness" placeholder="24px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Policy Details">
+            <ColorControl section="policyDetails" field="background" label="Background" />
+            <ColorControl section="policyDetails" field="titleColor" label="Title Text" />
+            <ColorControl section="policyDetails" field="labelColor" label="Label Text" />
+            <ColorControl section="policyDetails" field="valueColor" label="Value Text" />
+            <ColorControl section="policyDetails" field="rowBackground" label="Row Background" />
+            <TextControl section="policyDetails" field="titleSize" label="Title Size" placeholder="20px" />
+            <TextControl section="policyDetails" field="textSize" label="Text Size" placeholder="14px" />
+            <TextControl section="policyDetails" field="roundness" label="Roundness" placeholder="24px" />
+            <TextControl section="policyDetails" field="rowRoundness" label="Row Roundness" placeholder="12px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Comparison">
+            <ColorControl section="comparison" field="background" label="Background" />
+            <ColorControl section="comparison" field="titleColor" label="Title Text" />
+            <ColorControl section="comparison" field="tableHeaderBackground" label="Table Header Background" />
+            <ColorControl section="comparison" field="textColor" label="Text Color" />
+            <TextControl section="comparison" field="titleSize" label="Title Size" placeholder="20px" />
+            <TextControl section="comparison" field="textSize" label="Text Size" placeholder="14px" />
+            <TextControl section="comparison" field="roundness" label="Roundness" placeholder="24px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Disclosure">
+            <ColorControl section="disclosure" field="background" label="Background" />
+            <ColorControl section="disclosure" field="borderColor" label="Border Color" />
+            <ColorControl section="disclosure" field="titleColor" label="Title Text" />
+            <ColorControl section="disclosure" field="textColor" label="Body Text" />
+            <TextControl section="disclosure" field="titleSize" label="Title Size" placeholder="14px" />
+            <TextControl section="disclosure" field="textSize" label="Text Size" placeholder="14px" />
+            <TextControl section="disclosure" field="roundness" label="Roundness" placeholder="24px" />
+          </CustomizationSection>
+
+          <CustomizationSection title="Footer">
+            <ColorControl section="footer" field="textColor" label="Footer Text" />
+            <ColorControl section="footer" field="strongTextColor" label="Strong Text" />
+            <TextControl section="footer" field="textSize" label="Footer Font Size" placeholder="14px" />
+          </CustomizationSection>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  function BrandingTab() {
+    return (
+      <Card className="rounded-3xl shadow-sm">
+        <CardContent className="p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold">Branding Settings</h2>
+              <p className="text-sm text-gray-500">
+                Customize the colors and logo used in the client preview and PDF.
+              </p>
+            </div>
+            <Button variant="outline" onClick={resetBrandSettings}>
+              Reset
+            </Button>
+          </div>
+
+          <div className="mb-5 rounded-2xl border bg-gray-50 p-4">
+            <label className={labelClass()}>Logo Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              className={inputClass()}
+              onChange={handleLogoUpload}
+            />
+            <p className="mt-2 text-xs text-gray-500">
+              Upload a PNG, JPG, or SVG logo. It will be saved in this browser.
+            </p>
+
+            {brand.logoImage && (
+              <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-white p-3">
+                <img
+                  src={brand.logoImage}
+                  alt={`${brand.businessName} uploaded logo`}
+                  className="max-h-20 max-w-[190px] object-contain"
+                />
+                <Button
+                  variant="outline"
+                  onClick={() => updateBrand("logoImage", "")}
+                >
+                  Remove Logo
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className="mb-5 grid gap-3 sm:grid-cols-2">
+            {[
+              ["primaryColor", "Primary Color"],
+              ["accentColor", "Accent Color"],
+              ["headerBackgroundColor", "Header Background"],
+              ["pageBackgroundColor", "Page Background"],
+            ].map(([key, label]) => (
+              <div key={key} className="rounded-2xl border bg-gray-50 p-3">
+                <label className={labelClass()}>{label}</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    className="h-11 w-14 cursor-pointer rounded-xl border bg-white p-1"
+                    value={brand[key]}
+                    onChange={(e) => updateBrand(key, e.target.value)}
+                  />
+                  <input
+                    className={inputClass()}
+                    value={brand[key]}
+                    onChange={(e) => updateBrand(key, e.target.value)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-3">
+            {[
+              ["businessName", "Business Name"],
+              ["tagline", "Tagline"],
+              ["advisorName", "Advisor Name"],
+              ["phone", "Phone"],
+              ["email", "Email"],
+              ["website", "Website"],
+              ["logoText", "Fallback Logo Text"],
+            ].map(([key, label]) => (
+              <div key={key}>
+                <label className={labelClass()}>{label}</label>
+                <input
+                  className={inputClass()}
+                  value={brand[key]}
+                  onChange={(e) => updateBrand(key, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  function BuilderTab() {
+    return (
+      <>
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-bold">Supabase Tools</h2>
+                <p className="text-sm text-gray-500">
+                  Test connection, save clients, and publish summaries.
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-3 flex flex-wrap gap-2">
+              <Button variant="outline" onClick={testSupabaseConnection}>
+                Test Supabase
+              </Button>
+              <Button variant="outline" onClick={loadSavedClients}>
+                Refresh Clients
+              </Button>
+            </div>
+
+            {dbMessage && (
+              <div className="rounded-2xl bg-gray-50 p-3 text-sm font-medium text-gray-700">
+                {dbMessage}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <h2 className="mb-4 text-lg font-bold">Client Profile</h2>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <label className={labelClass()}>First Name</label>
+                <input
+                  className={inputClass()}
+                  value={clientProfile.firstName}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Last Name</label>
+                <input
+                  className={inputClass()}
+                  value={clientProfile.lastName}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      lastName: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Date of Birth</label>
+                <input
+                  type="date"
+                  className={inputClass()}
+                  value={clientProfile.dateOfBirth}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      dateOfBirth: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Access Code</label>
+                <input
+                  className={inputClass()}
+                  value={clientProfile.accessCode}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      accessCode: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Email</label>
+                <input
+                  className={inputClass()}
+                  value={clientProfile.email}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Phone</label>
+                <input
+                  className={inputClass()}
+                  value={clientProfile.phone}
+                  onChange={(e) =>
+                    setClientProfile({
+                      ...clientProfile,
+                      phone: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button onClick={saveClientProfile}>Save Client Profile</Button>
+
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setActiveClientId("");
+                  setActiveIllustrationId("");
+                  setActiveIllustrationPublished(false);
+                  setSavedIllustrations([]);
+                  setClientProfile({
+                    firstName: "",
+                    lastName: "",
+                    dateOfBirth: "",
+                    email: "",
+                    phone: "",
+                    accessCode: "123456",
+                    status: "prospect",
+                  });
+                }}
+              >
+                New Client
+              </Button>
+            </div>
+
+            {savedClients.length > 0 && (
+              <div className="mt-5">
+                <label className={labelClass()}>Saved Clients</label>
+                <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
+                  {savedClients.map((savedClient) => (
+                    <button
+                      key={savedClient.id}
+                      className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
+                        activeClientId === savedClient.id
+                          ? "border-gray-950 bg-gray-100"
+                          : "bg-white hover:bg-gray-50"
+                      }`}
+                      onClick={() => selectAdvisorClient(savedClient)}
+                    >
+                      <span className="font-bold">
+                        {savedClient.first_name} {savedClient.last_name}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        DOB: {savedClient.date_of_birth || "—"} • Code:{" "}
+                        {savedClient.access_code || "—"}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <h2 className="mb-4 text-lg font-bold">Client Info</h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {Object.keys(client).map((key) => (
+                <div key={key} className={key === "goal" ? "sm:col-span-2" : ""}>
+                  <label className={labelClass()}>{key}</label>
+                  {key === "goal" ? (
+                    <textarea
+                      className={inputClass()}
+                      rows={3}
+                      value={client[key]}
+                      onChange={(e) =>
+                        setClient({ ...client, [key]: e.target.value })
+                      }
+                    />
+                  ) : (
+                    <input
+                      className={inputClass()}
+                      value={client[key]}
+                      onChange={(e) =>
+                        setClient({ ...client, [key]: e.target.value })
+                      }
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold">Product</h2>
+              <label className="flex items-center gap-2 text-sm font-medium">
+                <input
+                  type="checkbox"
+                  checked={compareMode}
+                  onChange={(e) => setCompareMode(e.target.checked)}
+                />{" "}
+                Comparison
+              </label>
+            </div>
+
+            <label className={labelClass()}>Carrier</label>
+            <select
+              className={`${inputClass()} mb-4`}
+              value={selectedCarrier}
+              onChange={(e) => setSelectedCarrier(e.target.value)}
+            >
+              {Object.keys(carriers).map((carrier) => (
+                <option key={carrier} value={carrier}>
+                  {carrier}
+                </option>
+              ))}
+            </select>
+
+            {selectedCarrierData && (
+              <div className="mb-4 flex items-center gap-3 rounded-2xl border bg-gray-50 p-3">
+                <img
+                  src={selectedCarrierData.logo}
+                  alt={`${selectedCarrierData.name} logo`}
+                  className="max-h-16 max-w-[220px] object-contain"
+                />
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Selected Carrier
+                  </p>
+                  <p className="text-sm font-bold text-gray-950">
+                    {selectedCarrierData.name}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <label className={labelClass()}>Product Presented</label>
+            <select
+              className={inputClass()}
+              value={selectedProduct}
+              onChange={(e) => handleProductChange(e.target.value)}
+            >
+              {Object.keys(productTemplates).map((product) => (
+                <option key={product}>{product}</option>
+              ))}
+            </select>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <h2 className="mb-4 text-lg font-bold">Manual Entry Details</h2>
+            <div className="space-y-3">
+              {currentFields.map((field) => (
+                <div key={field}>
+                  <label className={labelClass()}>{field}</label>
+                  <input
+                    className={inputClass()}
+                    value={details[field] || ""}
+                    onChange={(e) =>
+                      setDetails({
+                        ...details,
+                        [field]: e.target.value,
+                      })
+                    }
+                    placeholder="Enter from official carrier illustration"
+                  />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <h2 className="mb-4 text-lg font-bold">Custom Talking Points</h2>
+            <div className="space-y-2">
+              {customPoints.map((point, index) => (
+                <div
+                  key={index}
+                  className="flex gap-2 rounded-xl bg-gray-50 p-2 text-sm"
+                >
+                  <span className="flex-1">{point}</span>
+                  <button
+                    onClick={() =>
+                      setCustomPoints(customPoints.filter((_, i) => i !== index))
+                    }
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex gap-2">
+              <input
+                className={inputClass()}
+                value={newPoint}
+                onChange={(e) => setNewPoint(e.target.value)}
+                placeholder="Add custom point"
+              />
+              <Button onClick={addCustomPoint}>
+                <Plus size={16} />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {compareMode && (
+          <Card className="rounded-3xl shadow-sm">
+            <CardContent className="p-5">
+              <h2 className="mb-4 text-lg font-bold">Comparison Template</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[0, 1].map((index) => (
+                  <div key={index}>
+                    <label className={labelClass()}>
+                      Compare Product {index + 1}
+                    </label>
+                    <select
+                      className={inputClass()}
+                      value={comparisonProducts[index]}
+                      onChange={(e) => {
+                        const next = [...comparisonProducts];
+                        next[index] = e.target.value;
+                        setComparisonProducts(next);
+                      }}
+                    >
+                      {Object.keys(productTemplates).map((product) => (
+                        <option key={product}>{product}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 space-y-4">
+                {comparisonProducts.map((product) => (
+                  <div key={product} className="rounded-2xl border p-3">
+                    <h3 className="mb-3 font-bold">{product}</h3>
+                    <div className="space-y-2">
+                      {comparisonRows.map((row) => (
+                        <div key={row}>
+                          <label className={labelClass()}>{row}</label>
+                          <input
+                            className={inputClass()}
+                            value={(comparisonData[product] || {})[row] || ""}
+                            onChange={(e) =>
+                              updateComparison(product, row, e.target.value)
+                            }
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        <Card className="rounded-3xl shadow-sm">
+          <CardContent className="p-5">
+            <h2 className="mb-4 text-lg font-bold">
+              Illustration Save / Publish
+            </h2>
+
+            <div className="mb-4 rounded-2xl bg-gray-50 p-3 text-sm">
+              <p>
+                <strong>Active client:</strong>{" "}
+                {activeClientId
+                  ? `${clientProfile.firstName} ${clientProfile.lastName}`
+                  : "None selected"}
+              </p>
+              <p>
+                <strong>Active illustration:</strong>{" "}
+                {activeIllustrationId || "None saved yet"}
+              </p>
+              <p>
+                <strong>Status:</strong>{" "}
+                {activeIllustrationPublished
+                  ? "Published to client"
+                  : "Draft / unpublished"}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={saveIllustrationToClient}>
+                Save Illustration to Client
+              </Button>
+              <Button variant="outline" onClick={() => setPublishedStatus(true)}>
+                Publish
+              </Button>
+              <Button variant="outline" onClick={() => setPublishedStatus(false)}>
+                Unpublish
+              </Button>
+            </div>
+
+            {savedIllustrations.length > 0 && (
+              <div className="mt-5">
+                <label className={labelClass()}>
+                  Saved Illustrations for Client
+                </label>
+                <div className="space-y-2">
+                  {savedIllustrations.map((illustration) => (
+                    <button
+                      key={illustration.id}
+                      className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
+                        activeIllustrationId === illustration.id
+                          ? "border-gray-950 bg-gray-100"
+                          : "bg-white hover:bg-gray-50"
+                      }`}
+                      onClick={() => applyIllustrationToBuilder(illustration)}
+                    >
+                      <span className="font-bold">
+                        {illustration.product_type}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {illustration.is_published ? "Published" : "Draft"} •{" "}
+                        {new Date(illustration.created_at).toLocaleDateString()}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </>
+    );
+  }
+
   if (!advisorAuthenticated && !clientAuthenticated) {
     return (
       <div
         className="min-h-screen p-6 text-white"
-        style={{ backgroundColor: loginTheme.background }}
+        style={{
+          backgroundColor: loginTheme.background,
+          fontFamily: customization.fontFamily,
+        }}
       >
         <div className="mx-auto flex min-h-[80vh] max-w-md items-center justify-center">
           <motion.div
@@ -698,23 +1702,36 @@ export default function NemnichIllustrationBuilder() {
             className="w-full"
           >
             <Card
-              className="rounded-3xl border-gray-800 shadow-2xl backdrop-blur"
-              style={{ backgroundColor: loginTheme.cardBackground }}
+              className="border-gray-800 shadow-2xl backdrop-blur"
+              style={{
+                backgroundColor: loginTheme.cardBackground,
+                borderRadius: loginTheme.cardRoundness,
+              }}
             >
               <CardContent className="p-8">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl p-2">
+                  <div
+                    className="flex h-16 w-16 items-center justify-center p-2"
+                    style={{ borderRadius: loginTheme.logoRoundness }}
+                  >
                     <img
                       src={loginTheme.logoPath}
                       alt="Nemnich Life & Wealth logo"
                       className="max-h-full max-w-full object-contain"
+                      style={{ borderRadius: loginTheme.logoRoundness }}
                     />
                   </div>
                   <div>
-                    <h1 className="text-2xl font-bold text-white">
+                    <h1
+                      className="text-2xl font-bold"
+                      style={{ color: loginTheme.titleColor }}
+                    >
                       Nemnich Life and Wealth
                     </h1>
-                    <p className="text-sm text-gray-300">
+                    <p
+                      className="text-sm"
+                      style={{ color: loginTheme.subtitleColor }}
+                    >
                       Advisor and client access
                     </p>
                   </div>
@@ -722,21 +1739,33 @@ export default function NemnichIllustrationBuilder() {
 
                 <div className="mb-5 grid grid-cols-2 gap-2 rounded-2xl bg-white/5 p-2">
                   <button
-                    className={`rounded-xl px-3 py-2 text-sm font-bold ${
-                      portalMode === "advisor"
-                        ? "bg-white text-gray-950"
-                        : "text-white"
-                    }`}
+                    className="rounded-xl px-3 py-2 text-sm font-bold"
+                    style={{
+                      background:
+                        portalMode === "advisor"
+                          ? loginTheme.tabActiveBackground
+                          : "transparent",
+                      color:
+                        portalMode === "advisor"
+                          ? loginTheme.tabActiveText
+                          : loginTheme.tabInactiveText,
+                    }}
                     onClick={() => setPortalMode("advisor")}
                   >
                     Advisor
                   </button>
                   <button
-                    className={`rounded-xl px-3 py-2 text-sm font-bold ${
-                      portalMode === "client"
-                        ? "bg-white text-gray-950"
-                        : "text-white"
-                    }`}
+                    className="rounded-xl px-3 py-2 text-sm font-bold"
+                    style={{
+                      background:
+                        portalMode === "client"
+                          ? loginTheme.tabActiveBackground
+                          : "transparent",
+                      color:
+                        portalMode === "client"
+                          ? loginTheme.tabActiveText
+                          : loginTheme.tabInactiveText,
+                    }}
                     onClick={() => setPortalMode("client")}
                   >
                     Client
@@ -745,18 +1774,27 @@ export default function NemnichIllustrationBuilder() {
 
                 {portalMode === "advisor" ? (
                   <>
-                    <div className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-gray-200">
-                      <div className="mb-2 flex items-center gap-2 font-semibold text-white">
+                    <div className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
+                      <div
+                        className="mb-2 flex items-center gap-2 font-semibold"
+                        style={{ color: loginTheme.titleColor }}
+                      >
                         <Lock size={16} /> Advisor Access
                       </div>
-                      Enter your private advisor password to access the builder.
+                      <p style={{ color: loginTheme.helpTextColor }}>
+                        Enter your private advisor password to access the builder.
+                      </p>
                     </div>
 
-                    <label className="mb-2 block text-sm font-semibold text-gray-200">
+                    <label
+                      className="mb-2 block text-sm font-semibold"
+                      style={{ color: loginTheme.labelColor }}
+                    >
                       Advisor Password
                     </label>
                     <input
-                      className="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      className="w-full border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      style={{ borderRadius: loginTheme.inputRoundness }}
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -769,43 +1807,62 @@ export default function NemnichIllustrationBuilder() {
                     />
 
                     <Button
-                      className="mt-4 w-full rounded-xl py-6 text-base font-bold"
+                      className="mt-4 w-full py-6 text-base font-bold"
                       style={{
                         backgroundColor: loginTheme.buttonBackground,
                         color: loginTheme.buttonText,
+                        borderRadius: loginTheme.buttonRoundness,
                       }}
-                      onClick={() => setAdvisorAuthenticated(password === advisorPassword)}
+                      onClick={() =>
+                        setAdvisorAuthenticated(password === advisorPassword)
+                      }
                     >
                       Enter Advisor Builder
                     </Button>
                   </>
                 ) : (
                   <>
-                    <div className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-gray-200">
-                      <div className="mb-2 flex items-center gap-2 font-semibold text-white">
+                    <div className="mb-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm">
+                      <div
+                        className="mb-2 flex items-center gap-2 font-semibold"
+                        style={{ color: loginTheme.titleColor }}
+                      >
                         <UserCheck size={16} /> Client Portal Access
                       </div>
-                      Use the last name, date of birth, and access code created
-                      by the advisor.
+                      <p style={{ color: loginTheme.helpTextColor }}>
+                        Use the last name, date of birth, and access code created
+                        by the advisor.
+                      </p>
                     </div>
 
-                    <label className="mb-2 block text-sm font-semibold text-gray-200">
+                    <label
+                      className="mb-2 block text-sm font-semibold"
+                      style={{ color: loginTheme.labelColor }}
+                    >
                       Last Name
                     </label>
                     <input
-                      className="mb-3 w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      className="mb-3 w-full border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      style={{ borderRadius: loginTheme.inputRoundness }}
                       value={clientLogin.lastName}
                       onChange={(e) =>
-                        setClientLogin({ ...clientLogin, lastName: e.target.value })
+                        setClientLogin({
+                          ...clientLogin,
+                          lastName: e.target.value,
+                        })
                       }
                       placeholder="Example"
                     />
 
-                    <label className="mb-2 block text-sm font-semibold text-gray-200">
+                    <label
+                      className="mb-2 block text-sm font-semibold"
+                      style={{ color: loginTheme.labelColor }}
+                    >
                       Date of Birth
                     </label>
                     <input
-                      className="mb-3 w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      className="mb-3 w-full border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      style={{ borderRadius: loginTheme.inputRoundness }}
                       type="date"
                       value={clientLogin.dateOfBirth}
                       onChange={(e) =>
@@ -816,11 +1873,15 @@ export default function NemnichIllustrationBuilder() {
                       }
                     />
 
-                    <label className="mb-2 block text-sm font-semibold text-gray-200">
+                    <label
+                      className="mb-2 block text-sm font-semibold"
+                      style={{ color: loginTheme.labelColor }}
+                    >
                       Access Code
                     </label>
                     <input
-                      className="w-full rounded-xl border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      className="w-full border border-white/10 bg-white px-4 py-3 text-gray-950 outline-none"
+                      style={{ borderRadius: loginTheme.inputRoundness }}
                       value={clientLogin.accessCode}
                       onChange={(e) =>
                         setClientLogin({
@@ -832,10 +1893,11 @@ export default function NemnichIllustrationBuilder() {
                     />
 
                     <Button
-                      className="mt-4 w-full rounded-xl py-6 text-base font-bold"
+                      className="mt-4 w-full py-6 text-base font-bold"
                       style={{
                         backgroundColor: loginTheme.buttonBackground,
                         color: loginTheme.buttonText,
+                        borderRadius: loginTheme.buttonRoundness,
                       }}
                       onClick={handleClientPortalLogin}
                     >
@@ -860,7 +1922,10 @@ export default function NemnichIllustrationBuilder() {
   return (
     <div
       className="min-h-screen text-gray-950"
-      style={{ backgroundColor: brand.pageBackgroundColor }}
+      style={{
+        backgroundColor: brand.pageBackgroundColor,
+        fontFamily: customization.fontFamily,
+      }}
     >
       <style>{`
         @page {
@@ -918,12 +1983,16 @@ export default function NemnichIllustrationBuilder() {
               <img
                 src={brand.logoImage}
                 alt={`${brand.businessName} logo`}
-                className="h-11 w-11 rounded-2xl bg-white object-contain p-1"
+                className="h-11 w-11 bg-white object-contain p-1"
+                style={{ borderRadius: customization.previewHeader.logoRoundness }}
               />
             ) : (
               <div
-                className="flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black text-white"
-                style={{ background: brand.primaryColor }}
+                className="flex h-11 w-11 items-center justify-center text-sm font-black text-white"
+                style={{
+                  background: brand.primaryColor,
+                  borderRadius: customization.previewHeader.logoRoundness,
+                }}
               >
                 {brand.logoText}
               </div>
@@ -943,7 +2012,7 @@ export default function NemnichIllustrationBuilder() {
             </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {advisorAuthenticated && (
               <>
                 <Button
@@ -958,6 +2027,13 @@ export default function NemnichIllustrationBuilder() {
                   onClick={() => setActiveTab("branding")}
                 >
                   <Settings size={16} className="mr-2" /> Branding
+                </Button>
+
+                <Button
+                  variant={activeTab === "customization" ? "default" : "outline"}
+                  onClick={() => setActiveTab("customization")}
+                >
+                  <Settings size={16} className="mr-2" /> Customization
                 </Button>
               </>
             )}
@@ -981,574 +2057,11 @@ export default function NemnichIllustrationBuilder() {
         {advisorAuthenticated && (
           <div className="no-print space-y-4">
             {activeTab === "branding" ? (
-              <Card className="rounded-3xl shadow-sm">
-                <CardContent className="p-5">
-                  <div className="mb-4 flex items-center justify-between gap-3">
-                    <div>
-                      <h2 className="text-lg font-bold">Branding Settings</h2>
-                      <p className="text-sm text-gray-500">
-                        Customize the colors and logo used in the client preview
-                        and PDF.
-                      </p>
-                    </div>
-                    <Button variant="outline" onClick={resetBrandSettings}>
-                      Reset
-                    </Button>
-                  </div>
-
-                  <div className="mb-5 rounded-2xl border bg-gray-50 p-4">
-                    <label className={labelClass()}>Logo Image</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className={inputClass()}
-                      onChange={handleLogoUpload}
-                    />
-                    <p className="mt-2 text-xs text-gray-500">
-                      Upload a PNG, JPG, or SVG logo. It will be saved in this
-                      browser.
-                    </p>
-
-                    {brand.logoImage && (
-                      <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-white p-3">
-                        <img
-                          src={brand.logoImage}
-                          alt={`${brand.businessName} uploaded logo`}
-                          className="max-h-20 max-w-[190px] object-contain"
-                        />
-                        <Button
-                          variant="outline"
-                          onClick={() => updateBrand("logoImage", "")}
-                        >
-                          Remove Logo
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mb-5 grid gap-3 sm:grid-cols-2">
-                    {[
-                      ["primaryColor", "Primary Color"],
-                      ["accentColor", "Accent Color"],
-                      ["headerBackgroundColor", "Header Background"],
-                      ["pageBackgroundColor", "Page Background"],
-                    ].map(([key, label]) => (
-                      <div
-                        key={key}
-                        className="rounded-2xl border bg-gray-50 p-3"
-                      >
-                        <label className={labelClass()}>{label}</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="color"
-                            className="h-11 w-14 cursor-pointer rounded-xl border bg-white p-1"
-                            value={brand[key]}
-                            onChange={(e) => updateBrand(key, e.target.value)}
-                          />
-                          <input
-                            className={inputClass()}
-                            value={brand[key]}
-                            onChange={(e) => updateBrand(key, e.target.value)}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="space-y-3">
-                    {[
-                      ["businessName", "Business Name"],
-                      ["tagline", "Tagline"],
-                      ["advisorName", "Advisor Name"],
-                      ["phone", "Phone"],
-                      ["email", "Email"],
-                      ["website", "Website"],
-                      ["logoText", "Fallback Logo Text"],
-                    ].map(([key, label]) => (
-                      <div key={key}>
-                        <label className={labelClass()}>{label}</label>
-                        <input
-                          className={inputClass()}
-                          value={brand[key]}
-                          onChange={(e) => updateBrand(key, e.target.value)}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <BrandingTab />
+            ) : activeTab === "customization" ? (
+              <CustomizationTab />
             ) : (
-              <>
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <div className="mb-4 flex items-center justify-between gap-3">
-                      <div>
-                        <h2 className="text-lg font-bold">Supabase Tools</h2>
-                        <p className="text-sm text-gray-500">
-                          Test connection, save clients, and publish summaries.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-3 flex flex-wrap gap-2">
-                      <Button variant="outline" onClick={testSupabaseConnection}>
-                        Test Supabase
-                      </Button>
-                      <Button variant="outline" onClick={loadSavedClients}>
-                        Refresh Clients
-                      </Button>
-                    </div>
-
-                    {dbMessage && (
-                      <div className="rounded-2xl bg-gray-50 p-3 text-sm font-medium text-gray-700">
-                        {dbMessage}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">
-                      Client Profile
-                    </h2>
-
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div>
-                        <label className={labelClass()}>First Name</label>
-                        <input
-                          className={inputClass()}
-                          value={clientProfile.firstName}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              firstName: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass()}>Last Name</label>
-                        <input
-                          className={inputClass()}
-                          value={clientProfile.lastName}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              lastName: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass()}>Date of Birth</label>
-                        <input
-                          type="date"
-                          className={inputClass()}
-                          value={clientProfile.dateOfBirth}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              dateOfBirth: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass()}>Access Code</label>
-                        <input
-                          className={inputClass()}
-                          value={clientProfile.accessCode}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              accessCode: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass()}>Email</label>
-                        <input
-                          className={inputClass()}
-                          value={clientProfile.email}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              email: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass()}>Phone</label>
-                        <input
-                          className={inputClass()}
-                          value={clientProfile.phone}
-                          onChange={(e) =>
-                            setClientProfile({
-                              ...clientProfile,
-                              phone: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <Button onClick={saveClientProfile}>
-                        Save Client Profile
-                      </Button>
-
-                      <Button variant="outline" onClick={() => {
-                        setActiveClientId("");
-                        setActiveIllustrationId("");
-                        setActiveIllustrationPublished(false);
-                        setSavedIllustrations([]);
-                        setClientProfile({
-                          firstName: "",
-                          lastName: "",
-                          dateOfBirth: "",
-                          email: "",
-                          phone: "",
-                          accessCode: "123456",
-                          status: "prospect",
-                        });
-                      }}>
-                        New Client
-                      </Button>
-                    </div>
-
-                    {savedClients.length > 0 && (
-                      <div className="mt-5">
-                        <label className={labelClass()}>Saved Clients</label>
-                        <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
-                          {savedClients.map((savedClient) => (
-                            <button
-                              key={savedClient.id}
-                              className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
-                                activeClientId === savedClient.id
-                                  ? "border-gray-950 bg-gray-100"
-                                  : "bg-white hover:bg-gray-50"
-                              }`}
-                              onClick={() => selectAdvisorClient(savedClient)}
-                            >
-                              <span className="font-bold">
-                                {savedClient.first_name} {savedClient.last_name}
-                              </span>
-                              <span className="block text-xs text-gray-500">
-                                DOB: {savedClient.date_of_birth || "—"} • Code:{" "}
-                                {savedClient.access_code || "—"}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">
-                      Client Info
-                    </h2>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {Object.keys(client).map((key) => (
-                        <div
-                          key={key}
-                          className={key === "goal" ? "sm:col-span-2" : ""}
-                        >
-                          <label className={labelClass()}>{key}</label>
-                          {key === "goal" ? (
-                            <textarea
-                              className={inputClass()}
-                              rows={3}
-                              value={client[key]}
-                              onChange={(e) =>
-                                setClient({ ...client, [key]: e.target.value })
-                              }
-                            />
-                          ) : (
-                            <input
-                              className={inputClass()}
-                              value={client[key]}
-                              onChange={(e) =>
-                                setClient({ ...client, [key]: e.target.value })
-                              }
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <div className="mb-4 flex items-center justify-between">
-                      <h2 className="text-lg font-bold">Product</h2>
-                      <label className="flex items-center gap-2 text-sm font-medium">
-                        <input
-                          type="checkbox"
-                          checked={compareMode}
-                          onChange={(e) => setCompareMode(e.target.checked)}
-                        />{" "}
-                        Comparison
-                      </label>
-                    </div>
-
-                    <label className={labelClass()}>Carrier</label>
-                    <select
-                      className={`${inputClass()} mb-4`}
-                      value={selectedCarrier}
-                      onChange={(e) => setSelectedCarrier(e.target.value)}
-                    >
-                      {Object.keys(carriers).map((carrier) => (
-                        <option key={carrier} value={carrier}>
-                          {carrier}
-                        </option>
-                      ))}
-                    </select>
-
-                    {selectedCarrierData && (
-                      <div className="mb-4 flex items-center gap-3 rounded-2xl border bg-gray-50 p-3">
-                        <img
-                          src={selectedCarrierData.logo}
-                          alt={`${selectedCarrierData.name} logo`}
-                          className="max-h-16 max-w-[220px] object-contain"
-                        />
-                        <div>
-                          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                            Selected Carrier
-                          </p>
-                          <p className="text-sm font-bold text-gray-950">
-                            {selectedCarrierData.name}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    <label className={labelClass()}>Product Presented</label>
-                    <select
-                      className={inputClass()}
-                      value={selectedProduct}
-                      onChange={(e) => handleProductChange(e.target.value)}
-                    >
-                      {Object.keys(productTemplates).map((product) => (
-                        <option key={product}>{product}</option>
-                      ))}
-                    </select>
-                  </CardContent>
-                </Card>
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">
-                      Manual Entry Details
-                    </h2>
-                    <div className="space-y-3">
-                      {currentFields.map((field) => (
-                        <div key={field}>
-                          <label className={labelClass()}>{field}</label>
-                          <input
-                            className={inputClass()}
-                            value={details[field] || ""}
-                            onChange={(e) =>
-                              setDetails({
-                                ...details,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder="Enter from official carrier illustration"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">
-                      Custom Talking Points
-                    </h2>
-                    <div className="space-y-2">
-                      {customPoints.map((point, index) => (
-                        <div
-                          key={index}
-                          className="flex gap-2 rounded-xl bg-gray-50 p-2 text-sm"
-                        >
-                          <span className="flex-1">{point}</span>
-                          <button
-                            onClick={() =>
-                              setCustomPoints(
-                                customPoints.filter((_, i) => i !== index)
-                              )
-                            }
-                          >
-                            <Trash2 size={15} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-3 flex gap-2">
-                      <input
-                        className={inputClass()}
-                        value={newPoint}
-                        onChange={(e) => setNewPoint(e.target.value)}
-                        placeholder="Add custom point"
-                      />
-                      <Button onClick={addCustomPoint}>
-                        <Plus size={16} />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {compareMode && (
-                  <Card className="rounded-3xl shadow-sm">
-                    <CardContent className="p-5">
-                      <h2 className="mb-4 text-lg font-bold">
-                        Comparison Template
-                      </h2>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {[0, 1].map((index) => (
-                          <div key={index}>
-                            <label className={labelClass()}>
-                              Compare Product {index + 1}
-                            </label>
-                            <select
-                              className={inputClass()}
-                              value={comparisonProducts[index]}
-                              onChange={(e) => {
-                                const next = [...comparisonProducts];
-                                next[index] = e.target.value;
-                                setComparisonProducts(next);
-                              }}
-                            >
-                              {Object.keys(productTemplates).map((product) => (
-                                <option key={product}>{product}</option>
-                              ))}
-                            </select>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="mt-4 space-y-4">
-                        {comparisonProducts.map((product) => (
-                          <div key={product} className="rounded-2xl border p-3">
-                            <h3 className="mb-3 font-bold">{product}</h3>
-                            <div className="space-y-2">
-                              {comparisonRows.map((row) => (
-                                <div key={row}>
-                                  <label className={labelClass()}>{row}</label>
-                                  <input
-                                    className={inputClass()}
-                                    value={
-                                      (comparisonData[product] || {})[row] || ""
-                                    }
-                                    onChange={(e) =>
-                                      updateComparison(
-                                        product,
-                                        row,
-                                        e.target.value
-                                      )
-                                    }
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                <Card className="rounded-3xl shadow-sm">
-                  <CardContent className="p-5">
-                    <h2 className="mb-4 text-lg font-bold">
-                      Illustration Save / Publish
-                    </h2>
-
-                    <div className="mb-4 rounded-2xl bg-gray-50 p-3 text-sm">
-                      <p>
-                        <strong>Active client:</strong>{" "}
-                        {activeClientId
-                          ? `${clientProfile.firstName} ${clientProfile.lastName}`
-                          : "None selected"}
-                      </p>
-                      <p>
-                        <strong>Active illustration:</strong>{" "}
-                        {activeIllustrationId || "None saved yet"}
-                      </p>
-                      <p>
-                        <strong>Status:</strong>{" "}
-                        {activeIllustrationPublished
-                          ? "Published to client"
-                          : "Draft / unpublished"}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      <Button onClick={saveIllustrationToClient}>
-                        Save Illustration to Client
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => setPublishedStatus(true)}
-                      >
-                        Publish
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => setPublishedStatus(false)}
-                      >
-                        Unpublish
-                      </Button>
-                    </div>
-
-                    {savedIllustrations.length > 0 && (
-                      <div className="mt-5">
-                        <label className={labelClass()}>
-                          Saved Illustrations for Client
-                        </label>
-                        <div className="space-y-2">
-                          {savedIllustrations.map((illustration) => (
-                            <button
-                              key={illustration.id}
-                              className={`w-full rounded-xl border px-3 py-2 text-left text-sm ${
-                                activeIllustrationId === illustration.id
-                                  ? "border-gray-950 bg-gray-100"
-                                  : "bg-white hover:bg-gray-50"
-                              }`}
-                              onClick={() => applyIllustrationToBuilder(illustration)}
-                            >
-                              <span className="font-bold">
-                                {illustration.product_type}
-                              </span>
-                              <span className="block text-xs text-gray-500">
-                                {illustration.is_published
-                                  ? "Published"
-                                  : "Draft"}{" "}
-                                • {new Date(
-                                  illustration.created_at
-                                ).toLocaleDateString()}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </>
+              <BuilderTab />
             )}
           </div>
         )}
@@ -1583,26 +2096,57 @@ export default function NemnichIllustrationBuilder() {
         <div className="print-area mx-auto w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-xl">
           <div
             className="p-8 text-white print-section"
-            style={{ background: brand.headerBackgroundColor }}
+            style={{ background: customization.previewHeader.background }}
           >
             <div className="flex items-start justify-between gap-6">
               <div>
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                <div
+                  className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
+                  style={{
+                    background: customization.previewHeader.badgeBackground,
+                    color: customization.previewHeader.badgeTextColor,
+                  }}
+                >
                   <Eye size={14} /> Client Planning Summary
                 </div>
 
-                <h1 className="text-4xl font-black tracking-tight">
+                <h1
+                  className="font-black tracking-tight"
+                  style={{
+                    color: customization.previewHeader.titleColor,
+                    fontSize: customization.previewHeader.titleSize,
+                  }}
+                >
                   {selectedProduct}
                 </h1>
 
-                <p className="mt-2 max-w-2xl text-sm text-white/80">
+                <p
+                  className="mt-2 max-w-2xl"
+                  style={{
+                    color: customization.previewHeader.subtitleColor,
+                    fontSize: customization.previewHeader.subtitleSize,
+                  }}
+                >
                   Prepared for {client.name} • Age {client.age} • {client.state}{" "}
                   • {client.preparedDate}
                 </p>
 
                 {selectedCarrierData && (
-                  <div className="mt-4 inline-flex items-center gap-3 rounded-2xl bg-white px-4 py-2">
-                    <span className="flex items-center text-xs font-semibold uppercase tracking-wide text-black">
+                  <div
+                    className="mt-4 inline-flex items-center gap-3 px-4 py-2"
+                    style={{
+                      background:
+                        customization.previewHeader.carrierBoxBackground,
+                      borderRadius:
+                        customization.previewHeader.carrierLogoRoundness,
+                    }}
+                  >
+                    <span
+                      className="flex items-center text-xs font-semibold uppercase tracking-wide"
+                      style={{
+                        color: customization.previewHeader.carrierTextColor,
+                      }}
+                    >
                       Carrier
                     </span>
 
@@ -1611,6 +2155,10 @@ export default function NemnichIllustrationBuilder() {
                         src={selectedCarrierData.logo}
                         alt={`${selectedCarrierData.name} logo`}
                         className="max-h-12 max-w-[220px] object-contain"
+                        style={{
+                          borderRadius:
+                            customization.previewHeader.carrierLogoRoundness,
+                        }}
                       />
                     </div>
                   </div>
@@ -1622,12 +2170,18 @@ export default function NemnichIllustrationBuilder() {
                   <img
                     src={brand.logoImage}
                     alt={`${brand.businessName} logo`}
-                    className="ml-auto max-h-24 max-w-[220px] rounded-2xl object-contain p-3"
+                    className="ml-auto max-h-24 max-w-[220px] object-contain p-3"
+                    style={{
+                      borderRadius: customization.previewHeader.logoRoundness,
+                    }}
                   />
                 ) : (
                   <div
-                    className="ml-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-xl font-black"
-                    style={{ color: brand.primaryColor }}
+                    className="ml-auto flex h-16 w-16 items-center justify-center bg-white text-xl font-black"
+                    style={{
+                      color: brand.primaryColor,
+                      borderRadius: customization.previewHeader.logoRoundness,
+                    }}
                   >
                     {brand.logoText}
                   </div>
@@ -1640,41 +2194,94 @@ export default function NemnichIllustrationBuilder() {
 
           <div className="p-8">
             <div className="print-section mb-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-3xl border bg-gray-50 p-5 md:col-span-2">
+              <div
+                className="border p-5 md:col-span-2"
+                style={{
+                  background: customization.clientGoal.background,
+                  borderRadius: customization.clientGoal.roundness,
+                }}
+              >
                 <div
-                  className="mb-2 flex items-center gap-2 text-sm font-bold"
-                  style={{ color: brand.accentColor }}
+                  className="mb-2 flex items-center gap-2 font-bold"
+                  style={{
+                    color: customization.clientGoal.titleColor,
+                    fontSize: customization.clientGoal.titleSize,
+                  }}
                 >
                   <ShieldCheck size={18} /> Client Goal
                 </div>
-                <p className="text-lg font-semibold leading-snug">
+                <p
+                  className="font-semibold leading-snug"
+                  style={{
+                    color: customization.clientGoal.textColor,
+                    fontSize: customization.clientGoal.textSize,
+                  }}
+                >
                   {client.goal}
                 </p>
               </div>
 
-              <div className="rounded-3xl border bg-gray-50 p-5">
+              <div
+                className="border p-5"
+                style={{
+                  background: customization.strategyPurpose.background,
+                  borderRadius: customization.strategyPurpose.roundness,
+                }}
+              >
                 <div
-                  className="mb-2 text-sm font-bold"
-                  style={{ color: brand.accentColor }}
+                  className="mb-2 font-bold"
+                  style={{
+                    color: customization.strategyPurpose.titleColor,
+                    fontSize: customization.strategyPurpose.titleSize,
+                  }}
                 >
                   Strategy Purpose
                 </div>
-                <p className="text-sm leading-relaxed">{template.goal}</p>
+                <p
+                  className="leading-relaxed"
+                  style={{
+                    color: customization.strategyPurpose.textColor,
+                    fontSize: customization.strategyPurpose.textSize,
+                  }}
+                >
+                  {template.goal}
+                </p>
               </div>
             </div>
 
             <div className="print-section mb-6 grid items-start gap-5 md:grid-cols-2">
-              <section className="h-fit rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+              <section
+                className="h-fit border p-5"
+                style={{
+                  background: customization.mainPolicyPoints.background,
+                  borderRadius: customization.mainPolicyPoints.roundness,
+                }}
+              >
+                <h2
+                  className="mb-4 flex items-center gap-2 font-black"
+                  style={{
+                    color: customization.mainPolicyPoints.titleColor,
+                    fontSize: customization.mainPolicyPoints.titleSize,
+                  }}
+                >
                   <ShieldCheck size={20} /> Main Policy Points
                 </h2>
 
-                <ul className="main-policy-list max-h-[420px] space-y-3 overflow-y-auto pr-2 text-sm">
+                <ul
+                  className="main-policy-list max-h-[420px] space-y-3 overflow-y-auto pr-2"
+                  style={{
+                    color: customization.mainPolicyPoints.textColor,
+                    fontSize: customization.mainPolicyPoints.textSize,
+                  }}
+                >
                   {template.mainPoints.map((point, index) => (
                     <li key={index} className="flex gap-3">
                       <span
                         className="mt-1 h-2 w-2 shrink-0 rounded-full"
-                        style={{ background: brand.accentColor }}
+                        style={{
+                          background:
+                            customization.mainPolicyPoints.bulletColor,
+                        }}
                       />
                       <span>{point}</span>
                     </li>
@@ -1689,8 +2296,20 @@ export default function NemnichIllustrationBuilder() {
                 </ul>
               </section>
 
-              <section className="h-fit rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+              <section
+                className="h-fit border p-5"
+                style={{
+                  background: customization.policyDetails.background,
+                  borderRadius: customization.policyDetails.roundness,
+                }}
+              >
+                <h2
+                  className="mb-4 flex items-center gap-2 font-black"
+                  style={{
+                    color: customization.policyDetails.titleColor,
+                    fontSize: customization.policyDetails.titleSize,
+                  }}
+                >
                   <FileText size={20} /> Policy Details
                 </h2>
 
@@ -1698,10 +2317,30 @@ export default function NemnichIllustrationBuilder() {
                   {currentFields.map((field) => (
                     <div
                       key={field}
-                      className="grid grid-cols-[1fr_1.2fr] gap-3 rounded-xl bg-gray-50 px-3 py-2 text-sm"
+                      className="grid grid-cols-[1fr_1.2fr] gap-3 px-3 py-2"
+                      style={{
+                        background: customization.policyDetails.rowBackground,
+                        borderRadius: customization.policyDetails.rowRoundness,
+                        fontSize: customization.policyDetails.textSize,
+                      }}
                     >
-                      <div className="font-semibold text-gray-500">{field}</div>
-                      <div className="font-bold text-gray-950">
+                      <button
+                        type="button"
+                        className="text-left font-semibold underline-offset-2 hover:underline"
+                        style={{
+                          color: customization.policyDetails.labelColor,
+                        }}
+                        onClick={() => openDefinition(field)}
+                      >
+                        {field}
+                      </button>
+
+                      <div
+                        className="font-bold"
+                        style={{
+                          color: customization.policyDetails.valueColor,
+                        }}
+                      >
                         {details[field] || "—"}
                       </div>
                     </div>
@@ -1711,14 +2350,34 @@ export default function NemnichIllustrationBuilder() {
             </div>
 
             {compareMode && (
-              <section className="print-section mb-6 rounded-3xl border p-5">
-                <h2 className="mb-4 flex items-center gap-2 text-xl font-black">
+              <section
+                className="print-section mb-6 border p-5"
+                style={{
+                  background: customization.comparison.background,
+                  borderRadius: customization.comparison.roundness,
+                  color: customization.comparison.textColor,
+                  fontSize: customization.comparison.textSize,
+                }}
+              >
+                <h2
+                  className="mb-4 flex items-center gap-2 font-black"
+                  style={{
+                    color: customization.comparison.titleColor,
+                    fontSize: customization.comparison.titleSize,
+                  }}
+                >
                   <BarChart3 size={20} /> Product Comparison
                 </h2>
                 <div className="overflow-hidden rounded-2xl border">
                   <table className="w-full border-collapse text-sm">
                     <thead>
-                      <tr className="bg-gray-100 text-left">
+                      <tr
+                        className="text-left"
+                        style={{
+                          background:
+                            customization.comparison.tableHeaderBackground,
+                        }}
+                      >
                         <th className="p-3 font-black">Feature</th>
                         {comparisonProducts.map((product) => (
                           <th key={product} className="p-3 font-black">
@@ -1730,9 +2389,7 @@ export default function NemnichIllustrationBuilder() {
                     <tbody>
                       {comparisonRows.map((row) => (
                         <tr key={row} className="border-t">
-                          <td className="p-3 font-semibold text-gray-600">
-                            {row}
-                          </td>
+                          <td className="p-3 font-semibold">{row}</td>
                           {comparisonProducts.map((product) => (
                             <td key={`${product}-${row}`} className="p-3">
                               {(comparisonData[product] || {})[row] || "—"}
@@ -1746,8 +2403,25 @@ export default function NemnichIllustrationBuilder() {
               </section>
             )}
 
-            <section className="print-section rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
-              <h2 className="mb-2 font-black">Important Disclosure</h2>
+            <section
+              className="print-section border p-5 leading-relaxed"
+              style={{
+                background: customization.disclosure.background,
+                borderColor: customization.disclosure.borderColor,
+                borderRadius: customization.disclosure.roundness,
+                color: customization.disclosure.textColor,
+                fontSize: customization.disclosure.textSize,
+              }}
+            >
+              <h2
+                className="mb-2 font-black"
+                style={{
+                  color: customization.disclosure.titleColor,
+                  fontSize: customization.disclosure.titleSize,
+                }}
+              >
+                Important Disclosure
+              </h2>
               <p>
                 This summary is a conceptual planning tool for educational
                 discussion only. It is not an official carrier illustration,
@@ -1761,9 +2435,18 @@ export default function NemnichIllustrationBuilder() {
               </p>
             </section>
 
-            <div className="mt-8 flex items-end justify-between border-t pt-5 text-sm text-gray-500">
+            <div
+              className="mt-8 flex items-end justify-between border-t pt-5"
+              style={{
+                color: customization.footer.textColor,
+                fontSize: customization.footer.textSize,
+              }}
+            >
               <div>
-                <p className="font-bold text-gray-950">
+                <p
+                  className="font-bold"
+                  style={{ color: customization.footer.strongTextColor }}
+                >
                   Prepared by {brand.advisorName}
                 </p>
                 <p>
@@ -1775,14 +2458,33 @@ export default function NemnichIllustrationBuilder() {
 
               <div className="text-right">
                 <p className="font-semibold">{brand.businessName}</p>
-                <p className="text-xs text-gray-400">
-                  Carrier: {selectedCarrier}
-                </p>
+                <p className="text-xs">Carrier: {selectedCarrier}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {selectedDefinition && (
+        <div className="no-print fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
+            <h3 className="mb-2 text-xl font-black">
+              {selectedDefinition.term}
+            </h3>
+            <p className="text-sm leading-relaxed text-gray-700">
+              {selectedDefinition.definition}
+            </p>
+
+            <button
+              type="button"
+              className="mt-5 w-full rounded-xl bg-gray-950 px-4 py-3 text-sm font-bold text-white"
+              onClick={() => setSelectedDefinition(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
