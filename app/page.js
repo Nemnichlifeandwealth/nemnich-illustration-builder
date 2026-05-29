@@ -711,7 +711,7 @@ export default function NemnichIllustrationBuilder() {
                     />
                   </div>
                   <div>
-                    <h1 className="text-2xl font-bold">
+                    <h1 className="text-2xl font-bold text-white">
                       Nemnich Life and Wealth
                     </h1>
                     <p className="text-sm text-gray-300">
