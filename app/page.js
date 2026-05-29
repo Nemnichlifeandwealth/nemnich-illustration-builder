@@ -488,7 +488,7 @@ export default function NemnichIllustrationBuilder() {
   const [brand, setBrand] = useState(defaultBrand);
   const [customization, setCustomization] = useState(defaultCustomization);
   const [activeTab, setActiveTab] = useState("builder");
-  const [selectedDefinition, setSelectedDefinition] = useState(null);
+  const [expandedDefinitionField, setExpandedDefinitionField] = useState(null);
 
   const [openCustomizationSections, setOpenCustomizationSections] = useState({
     globalFont: true,
@@ -773,13 +773,17 @@ export default function NemnichIllustrationBuilder() {
     window.print();
   }
 
-  function openDefinition(field) {
-    setSelectedDefinition({
-      term: field,
-      definition:
-        fieldDefinitions[field] ||
-        "Definition not added yet. This term can be added to the fieldDefinitions object inside the code.",
-    });
+  function toggleDefinition(field) {
+    setExpandedDefinitionField((currentField) =>
+      currentField === field ? null : field
+    );
+  }
+
+  function getDefinition(field) {
+    return (
+      fieldDefinitions[field] ||
+      "Definition not added yet. This term can be added to the fieldDefinitions object inside the code."
+    );
   }
 
   function applyIllustrationToBuilder(illustration) {
@@ -2642,37 +2646,89 @@ export default function NemnichIllustrationBuilder() {
                 </h2>
 
                 <div className="space-y-2">
-                  {currentFields.map((field) => (
-                    <div
-                      key={field}
-                      className="grid grid-cols-[1fr_1.2fr] gap-3 px-3 py-2"
-                      style={{
-                        background: customization.policyDetails.rowBackground,
-                        borderRadius: customization.policyDetails.rowRoundness,
-                        fontSize: customization.policyDetails.textSize,
-                      }}
-                    >
-                      <button
-                        type="button"
-                        className="text-left font-semibold underline-offset-2 hover:underline"
-                        style={{
-                          color: customization.policyDetails.labelColor,
-                        }}
-                        onClick={() => openDefinition(field)}
-                      >
-                        {field}
-                      </button>
+                  {currentFields.map((field) => {
+                    const isExpanded = expandedDefinitionField === field;
 
+                    return (
                       <div
-                        className="font-bold"
+                        key={field}
+                        className="overflow-hidden border transition-all duration-300"
                         style={{
-                          color: customization.policyDetails.valueColor,
+                          background: customization.policyDetails.rowBackground,
+                          borderRadius: customization.policyDetails.rowRoundness,
+                          fontSize: customization.policyDetails.textSize,
+                          borderColor: isExpanded
+                            ? customization.policyDetails.labelColor
+                            : "#E5E7EB",
                         }}
                       >
-                        {details[field] || "—"}
+                        <button
+                          type="button"
+                          className="grid w-full grid-cols-[1fr_1.2fr_auto] items-center gap-3 px-3 py-3 text-left transition hover:bg-black/5"
+                          onClick={() => toggleDefinition(field)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[11px] font-black"
+                              style={{
+                                color: customization.policyDetails.labelColor,
+                                borderColor: customization.policyDetails.labelColor,
+                              }}
+                            >
+                              ?
+                            </span>
+
+                            <span
+                              className="font-bold underline decoration-dotted underline-offset-4"
+                              style={{
+                                color: customization.policyDetails.labelColor,
+                              }}
+                            >
+                              {field}
+                            </span>
+                          </div>
+
+                          <div
+                            className="font-bold"
+                            style={{
+                              color: customization.policyDetails.valueColor,
+                            }}
+                          >
+                            {details[field] || "—"}
+                          </div>
+
+                          <span
+                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-lg font-black transition-transform duration-300 ${
+                              isExpanded ? "rotate-45" : "rotate-0"
+                            }`}
+                            style={{
+                              color: customization.policyDetails.labelColor,
+                              borderColor: customization.policyDetails.labelColor,
+                            }}
+                          >
+                            +
+                          </span>
+                        </button>
+
+                        <div
+                          className={`grid transition-all duration-300 ease-in-out ${
+                            isExpanded
+                              ? "grid-rows-[1fr] opacity-100"
+                              : "grid-rows-[0fr] opacity-0"
+                          }`}
+                        >
+                          <div className="overflow-hidden">
+                            <div className="border-t px-4 py-3 text-sm leading-relaxed text-gray-700">
+                              <div className="mb-1 text-xs font-black uppercase tracking-wide text-gray-500">
+                                What this means
+                              </div>
+                              {getDefinition(field)}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             </div>
@@ -2804,31 +2860,6 @@ export default function NemnichIllustrationBuilder() {
           </div>
         </div>
       </div>
-
-      {/* =====================================================
-          SECTION 27: FIELD DEFINITION POPUP
-      ===================================================== */}
-
-      {selectedDefinition && (
-        <div className="no-print fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
-            <h3 className="mb-2 text-xl font-black">
-              {selectedDefinition.term}
-            </h3>
-            <p className="text-sm leading-relaxed text-gray-700">
-              {selectedDefinition.definition}
-            </p>
-
-            <button
-              type="button"
-              className="mt-5 w-full rounded-xl bg-gray-950 px-4 py-3 text-sm font-bold text-white"
-              onClick={() => setSelectedDefinition(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
