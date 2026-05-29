@@ -2054,17 +2054,15 @@ export default function NemnichIllustrationBuilder() {
           clientAuthenticated ? "lg:grid-cols-1" : "lg:grid-cols-[420px_1fr]"
         }`}
       >
-        {advisorAuthenticated && (
-          <div className="no-print space-y-4">
-            {activeTab === "branding" ? (
-              <BrandingTab />
-            ) : activeTab === "customization" ? (
-              <CustomizationTab />
-            ) : (
-              <BuilderTab />
-            )}
-          </div>
-        )}
+    {advisorAuthenticated && (
+  <div className="no-print space-y-4">
+    {activeTab === "branding"
+      ? BrandingTab()
+      : activeTab === "customization"
+      ? CustomizationTab()
+      : BuilderTab()}
+  </div>
+)}
 
         {clientAuthenticated && (
           <div className="no-print mx-auto mb-2 w-full max-w-4xl rounded-3xl bg-white p-5 shadow-sm">
