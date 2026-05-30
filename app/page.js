@@ -517,6 +517,11 @@ export default function NemnichIllustrationBuilder() {
     "Indexed Universal Life",
   ]);
 
+  const [illustrationName, setIllustrationName] = useState(
+    "Retirement Income Strategy"
+  );
+  const [illustrationCategory, setIllustrationCategory] = useState("Annuity");
+
   const [client, setClient] = useState({
     name: "Joyce Example",
     age: "82",
@@ -745,6 +750,21 @@ export default function NemnichIllustrationBuilder() {
   function handleProductChange(product) {
     setSelectedProduct(product);
 
+    if (product === "Disability Income") {
+      setIllustrationCategory("Disability Income");
+    } else if (
+      product === "Term Life" ||
+      product === "Whole Life" ||
+      product === "Indexed Universal Life"
+    ) {
+      setIllustrationCategory("Life Insurance");
+    } else if (
+      product === "Fixed Indexed Annuity" ||
+      product === "Income Annuity"
+    ) {
+      setIllustrationCategory("Annuity");
+    }
+
     const nextDetails = {};
     productTemplates[product].fields.forEach((field) => {
       nextDetails[field] = details[field] || "";
@@ -791,6 +811,11 @@ export default function NemnichIllustrationBuilder() {
 
     setActiveIllustrationId(illustration.id);
     setActiveIllustrationPublished(Boolean(illustration.is_published));
+    setIllustrationName(
+      illustration.illustration_name ||
+        `${illustration.product_type || "Product"} Illustration`
+    );
+    setIllustrationCategory(illustration.illustration_category || "Other");
     setSelectedProduct(illustration.product_type || "Fixed Indexed Annuity");
     setSelectedCarrier(illustration.carrier || "Ameritas");
     setCompareMode(Boolean(illustration.compare_mode));
@@ -981,6 +1006,9 @@ export default function NemnichIllustrationBuilder() {
 
       const payload = {
         client_id: clientId,
+        illustration_name:
+          illustrationName || `${selectedProduct} Illustration`,
+        illustration_category: illustrationCategory,
         product_type: selectedProduct,
         carrier: selectedCarrier,
         client_goal: client.goal || "",
@@ -1171,6 +1199,8 @@ export default function NemnichIllustrationBuilder() {
     setActiveClientId("");
     setActiveIllustrationId("");
     setActiveIllustrationPublished(false);
+    setIllustrationName("Retirement Income Strategy");
+    setIllustrationCategory("Annuity");
   }
 
   /* =========================================================
@@ -1657,6 +1687,8 @@ export default function NemnichIllustrationBuilder() {
                   setActiveIllustrationId("");
                   setActiveIllustrationPublished(false);
                   setSavedIllustrations([]);
+                  setIllustrationName("Retirement Income Strategy");
+                  setIllustrationCategory("Annuity");
                   setClientProfile({
                     firstName: "",
                     lastName: "",
@@ -1747,6 +1779,33 @@ export default function NemnichIllustrationBuilder() {
                 />{" "}
                 Comparison
               </label>
+            </div>
+
+            <div className="mb-4 grid gap-3 sm:grid-cols-2">
+              <div>
+                <label className={labelClass()}>Illustration Name</label>
+                <input
+                  className={inputClass()}
+                  value={illustrationName}
+                  onChange={(e) => setIllustrationName(e.target.value)}
+                  placeholder="Example: Retirement Income Strategy"
+                />
+              </div>
+
+              <div>
+                <label className={labelClass()}>Illustration Category</label>
+                <select
+                  className={inputClass()}
+                  value={illustrationCategory}
+                  onChange={(e) => setIllustrationCategory(e.target.value)}
+                >
+                  <option>Annuity</option>
+                  <option>Life Insurance</option>
+                  <option>Disability Income</option>
+                  <option>Comparison</option>
+                  <option>Other</option>
+                </select>
+              </div>
             </div>
 
             <label className={labelClass()}>Carrier</label>
@@ -1920,7 +1979,9 @@ export default function NemnichIllustrationBuilder() {
               </p>
               <p>
                 <strong>Active illustration:</strong>{" "}
-                {activeIllustrationId || "None saved yet"}
+                {activeIllustrationId
+                  ? `${illustrationName || selectedProduct} (${illustrationCategory})`
+                  : "None saved yet"}
               </p>
               <p>
                 <strong>Status:</strong>{" "}
@@ -1933,6 +1994,19 @@ export default function NemnichIllustrationBuilder() {
             <div className="flex flex-wrap gap-2">
               <Button onClick={saveIllustrationToClient}>
                 Save Illustration to Client
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setActiveIllustrationId("");
+                  setActiveIllustrationPublished(false);
+                  setIllustrationName("");
+                  setIllustrationCategory("Annuity");
+                  setDbMessage("Ready to create a new illustration for this client.");
+                }}
+              >
+                New Illustration for This Client
               </Button>
 
               <Button variant="outline" onClick={() => setPublishedStatus(true)}>
@@ -1967,9 +2041,12 @@ export default function NemnichIllustrationBuilder() {
                       onClick={() => applyIllustrationToBuilder(illustration)}
                     >
                       <span className="font-bold">
-                        {illustration.product_type}
+                        {illustration.illustration_name ||
+                          `${illustration.product_type} Illustration`}
                       </span>
                       <span className="block text-xs text-gray-500">
+                        {illustration.illustration_category || "Other"} •{" "}
+                        {illustration.product_type} •{" "}
                         {illustration.is_published ? "Published" : "Draft"} •{" "}
                         {new Date(illustration.created_at).toLocaleDateString()}
                       </span>
@@ -2393,15 +2470,31 @@ export default function NemnichIllustrationBuilder() {
               . Only published illustrations are shown.
             </p>
 
-            {clientPortalIllustrations.length > 1 && (
-              <div className="mt-4 flex flex-wrap gap-2">
+            {clientPortalIllustrations.length > 0 && (
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {clientPortalIllustrations.map((illustration) => (
                   <button
                     key={illustration.id}
-                    className={smallButtonClass()}
+                    className={`rounded-2xl border p-4 text-left transition hover:border-gray-950 hover:bg-gray-50 ${
+                      activeIllustrationId === illustration.id
+                        ? "border-gray-950 bg-gray-100"
+                        : "bg-white"
+                    }`}
                     onClick={() => applyIllustrationToBuilder(illustration)}
                   >
-                    {illustration.product_type}
+                    <span className="block text-sm font-black text-gray-950">
+                      {illustration.illustration_name ||
+                        `${illustration.product_type} Illustration`}
+                    </span>
+                    <span className="mt-1 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      {illustration.illustration_category || "Other"}
+                    </span>
+                    <span className="mt-2 block text-sm text-gray-600">
+                      {illustration.product_type} • {illustration.carrier || "Carrier"}
+                    </span>
+                    <span className="mt-3 inline-flex rounded-full bg-gray-950 px-3 py-1 text-xs font-bold text-white">
+                      View Illustration
+                    </span>
                   </button>
                 ))}
               </div>
@@ -2441,7 +2534,7 @@ export default function NemnichIllustrationBuilder() {
                     fontSize: customization.previewHeader.titleSize,
                   }}
                 >
-                  {selectedProduct}
+                  {illustrationName || selectedProduct}
                 </h1>
 
                 <p
@@ -2453,6 +2546,15 @@ export default function NemnichIllustrationBuilder() {
                 >
                   Prepared for {client.name} • Age {client.age} • {client.state}{" "}
                   • {client.preparedDate}
+                </p>
+
+                <p
+                  className="mt-1 max-w-2xl text-xs font-semibold uppercase tracking-wide"
+                  style={{
+                    color: customization.previewHeader.subtitleColor,
+                  }}
+                >
+                  {illustrationCategory} • {selectedProduct}
                 </p>
 
                 {selectedCarrierData && (
