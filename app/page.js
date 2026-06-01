@@ -2324,8 +2324,8 @@ export default function NemnichIllustrationBuilder() {
                   <FileText size={20} /> Policy Details
                 </h2>
 
-                <div className="space-y-2">
-                  {currentFields.map((field) => {
+                <div className="grid gap-3 md:grid-cols-2">
+  {currentFields.map((field) => {
                     const isExpanded = expandedDefinitionField === field;
 
                     return (
