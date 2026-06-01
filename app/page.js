@@ -2305,11 +2305,7 @@ export default function NemnichIllustrationBuilder() {
                     </li>
                   ))}
                 </ul>
-		<BenefitsSection
- 		 selectedProduct={selectedProduct}
- 		 details={details}
-		/>
-              </section>
+	</section>
 
               <section
                 className="h-fit border p-5"
@@ -2415,6 +2411,12 @@ export default function NemnichIllustrationBuilder() {
                 </div>
               </section>
             </div>
+		<div className="print-section mb-6">
+  		<BenefitsSection
+    		selectedProduct={selectedProduct}
+    		details={details}
+ 		 />
+		</div>
 
             {/* =====================================================
                 SECTION 26D: PRODUCT COMPARISON

@@ -247,7 +247,7 @@ export default function BenefitsSection({ selectedProduct, details = {} }) {
           </p>
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-3 md:grid-cols-4">
           <div className="rounded-2xl border bg-white p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-gray-500">
               Death Benefit
@@ -449,7 +449,7 @@ export default function BenefitsSection({ selectedProduct, details = {} }) {
           </div>
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-2xl border bg-white p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-gray-500">
               Monthly Payment
@@ -515,7 +515,7 @@ export default function BenefitsSection({ selectedProduct, details = {} }) {
           <ShieldCheck size={20} /> Benefits
         </h3>
 
-        <div className="mt-4 grid gap-3">
+        <div className="mt-4 grid gap-3 md:grid-cols-4">
           <div className="rounded-2xl border bg-white p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-gray-500">
               Principal Protection
