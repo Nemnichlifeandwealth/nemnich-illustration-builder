@@ -2305,7 +2305,10 @@ export default function NemnichIllustrationBuilder() {
                     </li>
                   ))}
                 </ul>
-		<BenefitsSection selectedProduct={selectedProduct} />
+		<BenefitsSection
+ 		 selectedProduct={selectedProduct}
+ 		 details={details}
+		/>
               </section>
 
               <section
