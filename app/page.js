@@ -2279,7 +2279,7 @@ export default function NemnichIllustrationBuilder() {
                 </h2>
 
                 <ul
-                  className="main-policy-list max-h-[420px] space-y-3 overflow-y-auto pr-2"
+                  className="main-policy-list grid gap-3 md:grid-cols-2"
                   style={{
                     color: customization.mainPolicyPoints.textColor,
                     fontSize: customization.mainPolicyPoints.textSize,
