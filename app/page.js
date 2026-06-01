@@ -2260,7 +2260,7 @@ export default function NemnichIllustrationBuilder() {
                 SECTION 26C: MAIN POLICY POINTS + POLICY DETAILS
             ===================================================== */}
 
-            <div className="print-section mb-6 grid items-start gap-5 md:grid-cols-2">
+            <div className="print-section mb-6 grid gap-5">
               <section
                 className="h-fit border p-5"
                 style={{
